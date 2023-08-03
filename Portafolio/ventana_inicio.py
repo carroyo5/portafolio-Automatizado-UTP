@@ -19,7 +19,7 @@ def seleccion_carpeta():
 #Titulo
 tk.Label(ventana_inicio, text= 'Portafolio Automatizado', font=('Inter Bold',16)).pack()
 #Logo
-imagen_logo = tk.PhotoImage(file = r'.\imagenes\Logo.png')
+imagen_logo = tk.PhotoImage(file = r'.\Portafolio\imagenes\Logo.png')
 ttk.Label(ventana_inicio, image=imagen_logo).place(x=570, y=150)
 #Configuracion del estilo del boton
 estiloBotonPortafolio = ttk.Style()
@@ -30,7 +30,7 @@ estiloBotonPortafolio.configure('BotonPersonalizado.TButton',
                  borderwidth=4, font=('Inter', 12))
 #Espacio en blanco
 tk.Label(text='').pack()
-imagen_buscador = tk.PhotoImage(file = r'.\imagenes\imagen_buscador.png')
+imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
 #Configuracion del boton del portafolio
 boton_portafolio = ttk.Button(ventana_inicio, text='Selecciona la ruta donde quieres guardar tu portafolio',
            style='BotonPersonalizado.TButton',

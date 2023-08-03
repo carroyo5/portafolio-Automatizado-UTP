@@ -39,7 +39,7 @@ def seleccion_carpeta():
 #Texto que indica ayuda
 tk.Label(ventana, text="¿Necesitas ayuda? Pulsa este boton!").place(x=1000, y=14)
 #Configuracion del boton imagen
-imagen_ayuda = tk.PhotoImage(file = r'.\imagenes\info_button.png')
+imagen_ayuda = tk.PhotoImage(file = r'.\Portafolio\imagenes\info_button.png')
 tk.Button(ventana,image=imagen_ayuda, 
           command= boton_ayuda, 
           width= 38, height=38).place(x=1200, y=0)
