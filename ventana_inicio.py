@@ -38,8 +38,10 @@ boton_portafolio = ttk.Button(ventana_inicio, text='Selecciona la ruta donde qui
            compound='left', 
            command=seleccion_carpeta)
 boton_portafolio.pack()
+
 #boton_imagen = tk.Label(ventana_inicio, image=imagen_buscador)
 #boton_imagen.place(x=boton_portafolio.winfo_x(), y=boton_portafolio.winfo_y())
+
 tk.Label(text='').pack()
 ruta = tk.Label(ventana_inicio, text='')
 ruta.pack()
