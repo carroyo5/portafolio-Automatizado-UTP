@@ -7,14 +7,15 @@ ventana_inicio = tk.Tk()
 ventana_inicio.title('PA - Portafolio Automatizado')
 ventana_inicio.geometry('1280x720')
 ventana_inicio.resizable(width=False, height=False)
-
 def seleccion_carpeta():
     carpeta_seleccionada = filedialog.askdirectory()
     if carpeta_seleccionada:
         ruta.config(text=f'Ruta seleccionada: {carpeta_seleccionada}', font=('Inter Bold', 12), foreground='#75AD3C')
     else:
         ruta.config(text='No se ha seleccionado ninguna carpeta.',font=('Inter Bold', 12), foreground='red')
-
+#Funcion para el boton de salir y cerrar la pantalla principal
+def funcion_boton_salir():
+    ventana_inicio.destroy()
 #Titulo
 tk.Label(ventana_inicio, text= 'Portafolio Automatizado', font=('Inter Bold',16)).pack()
 #Logo
@@ -40,7 +41,6 @@ boton_portafolio.pack()
 tk.Label(text='').pack()
 ruta = tk.Label(ventana_inicio, text='')
 ruta.pack()
-
 #Imagen del portafolio nuevo
 imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
 #Estilo del portafolio nuevo
@@ -67,11 +67,9 @@ boton_nuevo_portafolio = ttk.Button(text='Mis credenciales',
      compound='left').place(x=80, y=300)
 #Imagen para salir
 imagen_salir = tk.PhotoImage(file= r'.\Portafolio\imagenes\salir.png')
-boton_nuevo_portafolio = ttk.Button(text='Salir',
+boton_salir = ttk.Button(text='Salir',
     style= 'EstiloBotonesInferiores.TButton',
      image= imagen_salir,
-     compound='left').place(x=80, y=400)
-
+     compound='left', command= lambda: funcion_boton_salir()).place(x=80, y=400)
 tk.Label(text='Hecho por y para estudiantes con mucho ♥', font=('Inter Regular',12)).place(x=30,y=680)
-
 ventana_inicio.mainloop()
