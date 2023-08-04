@@ -8,10 +8,15 @@ ventana.title('PA- Portafolio automatizado')
 ventana.geometry('1280x720')
 ventana.resizable(width=False, height=False)
 
+DEPARTAMENTOS = ['Arquitectura y Redes de Computadoras', ]
+
 #Variables globales
 nombreProfesor = tk.StringVar()
 nombreMateria = tk.StringVar()
 grupoCurso = tk.StringVar()
+nombre = tk.StringVar()
+apellido = tk.StringVar()
+departamento = tk.StringVar()
 rutaTareas = tk.StringVar()
 
 #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
@@ -46,12 +51,26 @@ tk.Button(ventana,image=imagen_ayuda,
 #titulo
 tk.Label(ventana, text='Portafolio Automatizado', font=('Arial', 16)).pack()
 #Boton para seleccionar la ruta de la carpeta donde se quiere guardar
+
+imagen_logo = tk.PhotoImage(file = r'.\Portafolio\imagenes\Logo.png')
+foto = tk.Label(ventana, image=imagen_logo).pack()
+
+
+
+
 tk.Button(ventana, text='Selecciona la ruta donde quieres guardar el portafolio', command=seleccion_carpeta).pack()
 ruta = tk.Label(ventana, text='')
 ruta.pack()
 #Input nombre de la materia
 tk.Label(text='Introduce el nombre de la materia').pack()
 tk.Entry(ventana, textvariable=nombreMateria).pack()
+
+tk.Label(text='Introduce tu nombre').pack()
+tk.Entry(ventana, textvariable=nombre).pack()
+
+tk.Label(text='Introduce tu apellido').pack()
+tk.Entry(ventana, textvariable=apellido).pack()
+
 
 #Boton para crear Portafolio y comprobar la informacion proporcionada
 tk.Button(text='Crear Portafolio',
