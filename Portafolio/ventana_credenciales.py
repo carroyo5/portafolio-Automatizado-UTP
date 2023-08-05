@@ -44,7 +44,7 @@ def cargar_imagen_default():
 
 #Funcion para seleccionar carpetas
 def seleccion_imagen():
-    imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes','*.png; *.jpg; *.jpeg')])
+    imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
     if imagen_seleccionada:
         archivo_seleccionado = tk.PhotoImage(file=imagen_seleccionada)
         mostrar_imagen.config(image=archivo_seleccionado)
