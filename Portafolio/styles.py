@@ -19,6 +19,22 @@ def get_app_style():
                  background='#B3D5EE', 
                  borderwidth=4, font=('Inter Bold', 12))
 
+  app_style.configure('BotonBuscarImagen.TButton', 
+                 relief='flat', 
+                 foreground='#555454', 
+                 background='#B3D5EE',
+                 width=20, 
+                 height=20, 
+                 borderwidth=20, font=('Inter Bold', 12))
+
+  app_style.configure('BotonGuardarCambios.TButton', 
+                 relief='flat', 
+                 foreground='#000000', 
+                 background='#8EFF9A',
+                 width=20, 
+                 height=20, 
+                 borderwidth=20, font=('Inter Bold', 12))
+
   return app_style
 
 

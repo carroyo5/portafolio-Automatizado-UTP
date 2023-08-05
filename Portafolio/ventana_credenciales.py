@@ -76,15 +76,7 @@ mostrar_imagen = tk.Label(credenciales, width=200, height=200)
 mostrar_imagen.place(x=95, y=50)
 #Funcion para cargar la imagen por defecto
 cargar_imagen_default()
-#Configuracion del boton buscar imagen
-botonBuscarImagen = ttk.Style()
-botonBuscarImagen.configure('BotonBuscarImagen.TButton', 
-                 relief='flat', 
-                 foreground='#555454', 
-                 background='#B3D5EE',
-                 width=20, 
-                 height=20, 
-                 borderwidth=20, font=('Inter Bold', 12))
+
 
 boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
            style='BotonBuscarImagen.TButton',
@@ -93,15 +85,6 @@ boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
            command=seleccion_imagen)
 boton_buscar_imagen.place(x=75,y=265)
 
-#Configuracion del boton de guardar cambios
-botonGuardarCambios = ttk.Style()
-botonGuardarCambios.configure('BotonGuardarCambios.TButton', 
-                 relief='flat', 
-                 foreground='#000000', 
-                 background='#8EFF9A',
-                 width=20, 
-                 height=20, 
-                 borderwidth=20, font=('Inter Bold', 12))
 
 imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
 boton_buscar_imagen = ttk.Button(credenciales, text='Guardar cambios',
