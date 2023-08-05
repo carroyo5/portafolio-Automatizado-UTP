@@ -76,21 +76,21 @@ boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
 boton_buscar_imagen.pack()
 
 #Input nombre de la materia
-tk.Label(text='Introduce el nombre de la materia').pack()
-tk.Entry(credenciales, textvariable=nombreMateria).pack()
+tk.Label(text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
+tk.Entry(credenciales, textvariable=nombreMateria).pack(ipadx=75)
 
-tk.Label(text='Introduce tu nombre').pack()
-tk.Entry(credenciales, textvariable=nombre).pack()
+tk.Label(text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
+tk.Entry(credenciales, textvariable=nombre).pack(ipadx=75)
 
-tk.Label(text='Introduce tu apellido').pack()
-tk.Entry(credenciales, textvariable=apellido).pack()
+tk.Label(text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
+tk.Entry(credenciales, textvariable=apellido).pack(ipadx=75)
 
 
 #Boton para crear Portafolio y comprobar la informacion proporcionada
 tk.Button(text='Crear Portafolio',
           height=2,
           width=20,
-          command=lambda: comprobacion()).pack()
+          command=lambda: comprobacion()).pack(side=tk.LEFT, padx=10)
 
 #Comprobacion del estado de la informacion
 def comprobacion():
