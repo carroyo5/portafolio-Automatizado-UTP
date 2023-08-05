@@ -19,6 +19,9 @@ def seleccion_carpeta():
 #Funcion para el boton de salir y cerrar la pantalla principal
 def funcion_boton_salir():
     ventana_inicio.destroy()
+
+def boton_credenciales():
+    pass
 #Titulo
 tk.Label(ventana_inicio, text= 'Portafolio Automatizado', font=('Inter Bold',16)).pack()
 #Logo
