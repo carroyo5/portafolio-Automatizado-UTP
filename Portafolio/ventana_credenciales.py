@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from PIL import Image, ImageTk
+
 #Configuración de la Ventana principal
 credenciales = tk.Tk()
 credenciales.title('PA- Portafolio automatizado')
@@ -46,7 +47,9 @@ def cargar_imagen_default():
 def seleccion_imagen():
     imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
     if imagen_seleccionada:
-        archivo_seleccionado = tk.PhotoImage(file=imagen_seleccionada)
+        archivo_seleccionado = Image.open(imagen_seleccionada)
+        archivo_seleccionado = imagen_seleccionada.resize((200, 200))
+        archivo_seleccionado = ImageTk.PhotoImage(imagen_seleccionada)
         mostrar_imagen.config(image=archivo_seleccionado)
         mostrar_imagen.image = archivo_seleccionado
     else:
@@ -60,20 +63,20 @@ tk.Button(credenciales,image=imagen_ayuda,
           command= boton_ayuda, 
           width= 38, height=38).place(x=1200, y=0)
 #titulo
-tk.Label(credenciales, text='Portafolio Automatizado', font=('Arial', 16)).pack()
+tk.Label(credenciales, text='Credenciales', font=('Arial', 16)).pack()
 imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
 #Label para mostrar la imagen
-mostrar_imagen = tk.Label(credenciales, width=400, height=400)
-mostrar_imagen.pack()
+mostrar_imagen = tk.Label(credenciales, width=200, height=200)
+mostrar_imagen.place(x=50, y=50)
 #Funcion para cargar la imagen por defecto
 cargar_imagen_default()
 #Configuracion del boton buscar imagen
 boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
            style='BotonPersonalizado.TButton',
            image=imagen_buscador,
-           compound='left', 
+           compound='left',
            command=seleccion_imagen)
-boton_buscar_imagen.pack()
+boton_buscar_imagen.place(x=75,y=265)
 
 #Input nombre de la materia
 tk.Label(text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
@@ -87,10 +90,7 @@ tk.Entry(credenciales, textvariable=apellido).pack(ipadx=75)
 
 
 #Boton para crear Portafolio y comprobar la informacion proporcionada
-tk.Button(text='Crear Portafolio',
-          height=2,
-          width=20,
-          command=lambda: comprobacion()).pack(side=tk.LEFT, padx=10)
+#tk.Button(text='Crear Portafolio', height=2, width=20, command=lambda: comprobacion()).pack(side=tk.LEFT, padx=10)
 
 #Comprobacion del estado de la informacion
 def comprobacion():
