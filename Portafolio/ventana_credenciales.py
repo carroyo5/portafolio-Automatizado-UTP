@@ -48,8 +48,8 @@ def seleccion_imagen():
     imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
     if imagen_seleccionada:
         archivo_seleccionado = Image.open(imagen_seleccionada)
-        archivo_seleccionado = imagen_seleccionada.resize((200, 200))
-        archivo_seleccionado = ImageTk.PhotoImage(imagen_seleccionada)
+        archivo_seleccionado = archivo_seleccionado.resize((200, 200))
+        archivo_seleccionado = ImageTk.PhotoImage(archivo_seleccionado)
         mostrar_imagen.config(image=archivo_seleccionado)
         mostrar_imagen.image = archivo_seleccionado
     else:
