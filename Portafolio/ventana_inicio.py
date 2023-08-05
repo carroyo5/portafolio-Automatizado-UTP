@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+import styles
 
 #Configuracion de la ventana de inicio
 ventana_inicio = tk.Tk()
 ventana_inicio.title('PA - Portafolio Automatizado')
 ventana_inicio.geometry('1280x720')
 ventana_inicio.resizable(width=False, height=False)
+ventana_inicio.style = styles.get_app_style()
+
 def seleccion_carpeta():
     carpeta_seleccionada = filedialog.askdirectory()
     if carpeta_seleccionada:
@@ -21,13 +24,7 @@ tk.Label(ventana_inicio, text= 'Portafolio Automatizado', font=('Inter Bold',16)
 #Logo
 imagen_logo = tk.PhotoImage(file = r'.\Portafolio\imagenes\Logo.png')
 ttk.Label(ventana_inicio, image=imagen_logo).place(x=570, y=150)
-#Configuracion del estilo del boton
-estiloBotonPortafolio = ttk.Style()
-estiloBotonPortafolio.configure('BotonPersonalizado.TButton', 
-                 relief='flat', 
-                 foreground='#555454', 
-                 background='#B3D5EE', 
-                 borderwidth=4, font=('Inter Bold', 12))
+
 #Espacio en blanco
 tk.Label(text='').pack()
 imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
@@ -43,16 +40,7 @@ ruta = tk.Label(ventana_inicio, text='')
 ruta.pack()
 #Imagen del portafolio nuevo
 imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
-#Estilo del portafolio nuevo
-estiloBotonesInferiores = ttk.Style()
-estiloBotonesInferiores.configure(
-    'EstiloBotonesInferiores.TButton', 
-                 relief='flat', 
-                 foreground='#000000', 
-                 background='#D9D9D9',
-                 height= 25,
-                 width=20,
-                 borderwidth=4, font=('Inter Bold', 20))
+
 #Boton para crear un portafolio nuevo
 boton_nuevo_portafolio = ttk.Button(text='Crear nuevo portafolio',
     style= 'EstiloBotonesInferiores.TButton',

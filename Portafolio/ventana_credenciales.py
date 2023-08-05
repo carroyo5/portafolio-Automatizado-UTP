@@ -3,12 +3,14 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 from PIL import Image, ImageTk
+import styles
 
 #Configuración de la Ventana principal
 credenciales = tk.Tk()
 credenciales.title('PA- Portafolio automatizado')
 credenciales.geometry('1280x720')
 credenciales.resizable(width=False, height=False)
+credenciales.style = styles.get_app_style()
 
 DEPARTAMENTOS = ['Arquitectura y Redes de Computadoras', ]
 
@@ -20,6 +22,7 @@ nombre = tk.StringVar()
 apellido = tk.StringVar()
 departamento = tk.StringVar()
 rutaTareas = tk.StringVar()
+
 
 #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
 def boton_ayuda():
@@ -90,7 +93,7 @@ tk.Entry(credenciales, textvariable=apellido).pack(ipadx=75)
 
 
 #Boton para crear Portafolio y comprobar la informacion proporcionada
-#tk.Button(text='Crear Portafolio', height=2, width=20, command=lambda: comprobacion()).pack(side=tk.LEFT, padx=10)
+ttk.Button(text='Crear Portafolio',command=lambda: comprobacion(), style= 'EstiloBotonesInferiores.TButton',).pack(side=tk.LEFT, padx=75)
 
 #Comprobacion del estado de la informacion
 def comprobacion():
