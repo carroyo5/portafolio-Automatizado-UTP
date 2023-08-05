@@ -58,6 +58,9 @@ def seleccion_imagen():
     else:
         cargar_imagen_default()
 
+def guardar_cambios():
+    pass
+
 #Texto que indica ayuda
 tk.Label(credenciales, text="¿Necesitas ayuda? Pulsa este boton!").place(x=1000, y=14)
 #Configuracion del boton imagen
@@ -66,20 +69,47 @@ tk.Button(credenciales,image=imagen_ayuda,
           command= boton_ayuda, 
           width= 38, height=38).place(x=1200, y=0)
 #titulo
-tk.Label(credenciales, text='Credenciales', font=('Arial', 16)).pack()
+tk.Label(credenciales, text='Credenciales', font=('Inter Bold', 16)).pack()
 imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
 #Label para mostrar la imagen
 mostrar_imagen = tk.Label(credenciales, width=200, height=200)
-mostrar_imagen.place(x=50, y=50)
+mostrar_imagen.place(x=95, y=50)
 #Funcion para cargar la imagen por defecto
 cargar_imagen_default()
 #Configuracion del boton buscar imagen
+botonBuscarImagen = ttk.Style()
+botonBuscarImagen.configure('BotonBuscarImagen.TButton', 
+                 relief='flat', 
+                 foreground='#555454', 
+                 background='#B3D5EE',
+                 width=20, 
+                 height=20, 
+                 borderwidth=20, font=('Inter Bold', 12))
+
 boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
-           style='BotonPersonalizado.TButton',
+           style='BotonBuscarImagen.TButton',
            image=imagen_buscador,
            compound='left',
            command=seleccion_imagen)
 boton_buscar_imagen.place(x=75,y=265)
+
+#Configuracion del boton de guardar cambios
+botonGuardarCambios = ttk.Style()
+botonGuardarCambios.configure('BotonGuardarCambios.TButton', 
+                 relief='flat', 
+                 foreground='#000000', 
+                 background='#8EFF9A',
+                 width=20, 
+                 height=20, 
+                 borderwidth=20, font=('Inter Bold', 12))
+
+imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
+boton_buscar_imagen = ttk.Button(credenciales, text='Guardar cambios',
+           style='BotonGuardarCambios.TButton',
+           image=imagen_check,
+           compound='left',
+           command = lambda: guardar_cambios)
+boton_buscar_imagen.place(x=75,y=320)
 
 #Input nombre de la materia
 tk.Label(text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
@@ -90,7 +120,6 @@ tk.Entry(credenciales, textvariable=nombre).pack(ipadx=75)
 
 tk.Label(text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
 tk.Entry(credenciales, textvariable=apellido).pack(ipadx=75)
-
 
 #Boton para crear Portafolio y comprobar la informacion proporcionada
 ttk.Button(text='Crear Portafolio',command=lambda: comprobacion(), style= 'EstiloBotonesInferiores.TButton',).pack(side=tk.LEFT, padx=75)
