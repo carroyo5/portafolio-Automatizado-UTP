@@ -77,7 +77,6 @@ mostrar_imagen.place(x=95, y=50)
 #Funcion para cargar la imagen por defecto
 cargar_imagen_default()
 
-
 boton_buscar_imagen = ttk.Button(credenciales, text='Buscar una imagen...',
            style='BotonBuscarImagen.TButton',
            image=imagen_buscador,

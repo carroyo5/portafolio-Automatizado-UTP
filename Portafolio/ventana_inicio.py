@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk 
 from tkinter import filedialog
 from styles import get_app_style
+from ventana_credenciales2 import PantallaCredenciales
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -42,13 +43,7 @@ class PantallaInicio(tk.Tk):
         self.boton_nuevo_portafolio = ttk.Button(text='Mis credenciales',
             style= 'EstiloBotonesInferiores.TButton',
             image= self.imagen_credenciales,
-            compound='left').place(x=80, y=300)
-        #Imagen de las credenciales
-        self.imagen_credenciales = tk.PhotoImage(file= r'.\Portafolio\imagenes\credenciales.png')
-        #Boton para crear llenar la informacion de los credenciales
-        self.boton_nuevo_portafolio = ttk.Button(text='Mis credenciales',
-            style= 'EstiloBotonesInferiores.TButton',
-            image= self.imagen_credenciales,
+            command= self.pantalla_credenciales,
             compound='left').place(x=80, y=300)
 
         #Imagen para salir
@@ -56,7 +51,7 @@ class PantallaInicio(tk.Tk):
         self.boton_salir = ttk.Button(text='Salir',
             style= 'EstiloBotonesInferiores.TButton',
             image= self.imagen_salir,
-            compound='left', command= self.boton_salir).place(x=80, y=400)
+            compound='left', command= self.funcion_boton_salir).place(x=80, y=400)
         tk.Label(text='Hecho por y para estudiantes con mucho ♥', font=('Inter Regular',12)).place(x=30,y=680)
     
     #Funcion de seleccion de carpeta
@@ -72,8 +67,14 @@ class PantallaInicio(tk.Tk):
                         foreground='red')
 
     #Funcion del boton salir y cerrar la pantalla
-    def boton_salir(self):
+    def funcion_boton_salir(self):
         self.destroy()
-
+  
+    def pantalla_credenciales(self):
+        self.withdraw()
+        pantalla_credenciales = PantallaCredenciales(self)
+        pantalla_credenciales.mainloop()
+        self.deiconify()
+        
 if __name__ == '__main__':
     PantallaInicio().mainloop()
