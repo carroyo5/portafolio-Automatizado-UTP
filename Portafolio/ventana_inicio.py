@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from styles import get_app_style
 from ventana_credenciales2 import PantallaCredenciales
+import json
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -29,6 +30,9 @@ class PantallaInicio(tk.Tk):
         self.boton_portafolio.pack()
         self.ruta = tk.Label(self, text='')
         self.ruta.pack()
+
+        #Cargar credenciales del usuario
+        cargar_credenciales()
 
         #Configuracion completa del boton portafolio nuevo
         self.imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
@@ -69,6 +73,14 @@ class PantallaInicio(tk.Tk):
     #Funcion del boton salir y cerrar la pantalla
     def funcion_boton_salir(self):
         self.destroy()
+
+def cargar_credenciales():
+    with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
+        datos = json.load(archivo)
+        print(datos)
+
+        
+
   
     def pantalla_credenciales(self):
         self.withdraw()
