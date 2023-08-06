@@ -1,6 +1,7 @@
 import tkinter as tk 
 from tkinter import ttk 
 from tkinter import filedialog
+from styles import get_app_style
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -8,18 +9,13 @@ class PantallaInicio(tk.Tk):
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
+        #Obtener los estilos del archivo styles
+        estilo = get_app_style()
         #Titulo
         tk.Label(self, text= 'Portafolio Automatizado', font=('Inter Bold',16)).pack()
         #imagen del logo
         self.imagen_logo = tk.PhotoImage(file = r'.\Portafolio\imagenes\Logo.png')
         ttk.Label(self, image = self.imagen_logo).place(x=570, y=150)
-        #Configuracion del estilo del boton
-        self.estilo_boton_portafolio = ttk.Style()
-        self.estilo_boton_portafolio.configure('BotonPersonalizado.TButton', 
-                 relief='flat', 
-                 foreground='#555454', 
-                 background='#B3D5EE', 
-                 borderwidth=4, font=('Inter Bold', 12))
         #Salto
         tk.Label(text='').pack()
         #Configuracion completa del boton de seleccion de carpeta
@@ -35,17 +31,6 @@ class PantallaInicio(tk.Tk):
 
         #Configuracion completa del boton portafolio nuevo
         self.imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
-        #Estilo de todos los botones inferiores al titulo
-        self.estilo_botones_inferiores = ttk.Style()
-        self.estilo_botones_inferiores.configure(
-            'EstiloBotonesInferiores.TButton', 
-                        relief='flat', 
-                        foreground='#000000', 
-                        background='#D9D9D9',
-                        height= 25,
-                        width=20,
-                        borderwidth=4, font=('Inter Bold', 20))
-        
         #Boton para crear un portafolio nuevo
         self.boton_nuevo_portafolio = ttk.Button(text='Crear nuevo portafolio',
                     style= 'EstiloBotonesInferiores.TButton',
@@ -72,7 +57,6 @@ class PantallaInicio(tk.Tk):
             style= 'EstiloBotonesInferiores.TButton',
             image= self.imagen_salir,
             compound='left', command= self.boton_salir).place(x=80, y=400)
-        
         tk.Label(text='Hecho por y para estudiantes con mucho ♥', font=('Inter Regular',12)).place(x=30,y=680)
     
     #Funcion de seleccion de carpeta
@@ -86,6 +70,7 @@ class PantallaInicio(tk.Tk):
             self.ruta.config(text='No se ha seleccionado ninguna carpeta.',
                         font=('Inter Bold', 12), 
                         foreground='red')
+
     #Funcion del boton salir y cerrar la pantalla
     def boton_salir(self):
         self.destroy()

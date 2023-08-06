@@ -5,7 +5,6 @@ from tkinter import ttk
 # Esta función define cada uno de los estilos de cada componente en la aplicación
 def get_app_style():
   app_style = ttk.Style()
-
   app_style.configure('EstiloBotonesInferiores.TButton', relief='flat', 
                  foreground='#000000', 
                  background='#D9D9D9',
