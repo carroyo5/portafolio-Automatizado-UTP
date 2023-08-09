@@ -22,7 +22,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
         #Texto que indica ayuda
-        tk.Label(self, text="¿Necesitas ayuda? Pulsa este boton!").place(x=1000, y=14)
+        tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
         #Configuracion del boton imagen
         self.imagen_ayuda = tk.PhotoImage(file = r'.\Portafolio\imagenes\info_button.png')
         tk.Button(self,image=self.imagen_ayuda, 
@@ -43,7 +43,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.boton_buscar_imagen.place(x=75,y=265)
 
         #Funcion para cargar la imagen por defecto
-        self.cargar_imagen_default
+        self.cargar_imagen_default()
 
         self.imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
         self.boton_buscar_imagen = ttk.Button(self, text='Guardar cambios',
@@ -52,11 +52,11 @@ class PantallaCredenciales(tk.Toplevel):
                 compound='left',
                 command = lambda: self.guardar_cambios)
         self.boton_buscar_imagen.place(x=75,y=320)
-        tk.Label(text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
-        tk.Label(text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre).pack(ipadx=75)
-        tk.Label(text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.apellido).pack(ipadx=75)
 
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
