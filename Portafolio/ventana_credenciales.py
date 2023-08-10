@@ -8,8 +8,8 @@ from manipular_json import manipularJson
 import os
 
 class PantallaCredenciales(tk.Toplevel):
-    def __init__(self, inicio)-> None:
-        super().__init__(inicio)
+    def __init__(self, master=None, *args, **kwargs) -> None:
+        super().__init__(master,*args, **kwargs)
         self.title('PA - Credenciales')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
@@ -17,7 +17,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.FACULTADES = ['Facultad de Ingeniería de Sistemas Computacionales', 
                            'Facultad de Ciencias y tecnología', 'Facultad de Ingeniería Civil', 
                            'Facultad de Ingenieria Industrial', 'Facultad de Ingenieria Mecánica']
-        #self.DEPARTAMENTOS  ['']
+        self.DEPARTAMENTOS = ['Introduce el departamento']
         self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación', ]
 
         #Variables globales para almcenar la informacion
@@ -57,8 +57,6 @@ class PantallaCredenciales(tk.Toplevel):
            command=self.seleccion_imagen)
         self.boton_buscar_imagen.place(x=75,y=265)
 
-
-
         #Funcion para cargar la imagen por defecto
         self.cargar_imagen_default()
 
@@ -77,10 +75,15 @@ class PantallaCredenciales(tk.Toplevel):
         self.boton_buscar_imagen.place(x=75,y=320)
         
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
-        tk.OptionMenu(self, self.facultad, self.FACULTADES).pack()
-        
+        ttk.Combobox(self, values=self.FACULTADES, 
+                            state='readonly', 
+                            width=27, 
+                            textvariable=self.facultad).pack()
         tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
-        tk.OptionMenu(self, self.carrera, self.CARRERAS).pack()
+        ttk.Combobox(self, values=self.CARRERAS, 
+                            state='readonly', 
+                            width=27, 
+                            textvariable=self.carrera).pack()
 
         tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
@@ -99,14 +102,7 @@ class PantallaCredenciales(tk.Toplevel):
         
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
-
-        
-
-        self.combo_facultades = ttk.Combobox(self, values=self.FACULTADES, 
-                                        state='readonly', 
-                                        width=27, 
-                                        textvariable=self.facultad).pack()
-        self.combo_facultades.set('Selecciona tu facultad')
+        tk.Button(self, text='Volver', command=self.volver_inicio).pack()
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
@@ -139,6 +135,7 @@ class PantallaCredenciales(tk.Toplevel):
         else:
             self.cargar_imagen_default()
 
+    #Metodo para manipular la informacion de los credenciales con el json
     def guardar_cambios(self, credenciales):
         archivo_json = manipularJson()
         if os.path.exists(archivo_json.ruta_completa):
@@ -154,8 +151,11 @@ class PantallaCredenciales(tk.Toplevel):
         except Exception as MensajeMateria:
             pass
 
+    def volver_inicio(self):
+        self.destroy()
+        self.master.deiconify()
+
     def convertir(self, dato):
         return str(dato.get())
-    
-if __name__ == '__main__':
-    PantallaCredenciales().mainloop()
+
+

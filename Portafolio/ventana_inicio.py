@@ -5,10 +5,11 @@ from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
 import json
 from manipular_json import manipularJson
+import _tkinter
 
 class PantallaInicio(tk.Tk):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
@@ -87,10 +88,13 @@ class PantallaInicio(tk.Tk):
             pass
 
     def pantalla_credenciales(self):
-        self.withdraw()
-        pantalla_credenciales = PantallaCredenciales(self)
-        pantalla_credenciales.mainloop()
-        self.deiconify()
+        try:
+            self.withdraw()
+            pantalla_credenciales = PantallaCredenciales(self)
+            pantalla_credenciales.mainloop()
+            self.deiconify()
+        except _tkinter.TclError as wm_command:
+            print('Error en la linea 93')
         
 if __name__ == '__main__':
     PantallaInicio().mainloop()
