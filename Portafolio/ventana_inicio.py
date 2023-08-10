@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
+from ventana_creacion import PantallaCreacion
 import json
 from manipular_json import manipularJson
 import _tkinter
@@ -41,7 +42,8 @@ class PantallaInicio(tk.Tk):
         self.boton_nuevo_portafolio = ttk.Button(text='Crear nuevo portafolio',
                     style= 'EstiloBotonesInferiores.TButton',
                     image= self.imagen_nuevo_portafolio,
-                    compound='left').place(x=80, y=200)
+                    compound='left', command= self.pantalla_creacion
+                    ).place(x=80, y=200)
         #Imagen de las credenciales
         self.imagen_credenciales = tk.PhotoImage(file= r'.\Portafolio\imagenes\credenciales.png')
         #Boton para crear llenar la informacion de los credenciales
@@ -86,6 +88,13 @@ class PantallaInicio(tk.Tk):
                 print(datos)
         else:
             pass
+
+    def pantalla_creacion(self):
+        self.withdraw()
+        pantalla_creacion = PantallaCreacion(self)
+        pantalla_creacion.mainloop()
+        self.deiconify()
+
 
     def pantalla_credenciales(self):
         try:
