@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk 
 from tkinter import filedialog
 from styles import get_app_style
-from ventana_credenciales2 import PantallaCredenciales
+from ventana_credenciales import PantallaCredenciales
 import json
 from manipular_json import manipularJson
 
@@ -32,7 +32,7 @@ class PantallaInicio(tk.Tk):
         self.ruta = tk.Label(self, text='')
         self.ruta.pack()
         #Cargar credenciales del usuario
-        #cargar_credenciales()
+        self.cargar_credenciales()
         #Configuracion completa del boton portafolio nuevo
         self.imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
         #Boton para crear un portafolio nuevo
@@ -75,7 +75,7 @@ class PantallaInicio(tk.Tk):
         manipulador = manipularJson()
         manipulador.borrar_json()
 
-    def cargar_credenciales():
+    def cargar_credenciales(self):
         with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
             datos = json.load(archivo)
             print(datos)

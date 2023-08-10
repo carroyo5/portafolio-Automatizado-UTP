@@ -14,12 +14,14 @@ class PantallaCredenciales(tk.Toplevel):
         self.resizable(width=False, height=False)
         estilo = get_app_style()
         self.DEPARTAMENTOS = ['Arquitectura y Redes de Computadoras']
+        self.CARRERAS = ['']
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
         self.grupo_curso = tk.StringVar()
         self.nombre = tk.StringVar()
         self.apellido = tk.StringVar()
+        self.cedula = tk.StringVar()
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
 
@@ -54,13 +56,16 @@ class PantallaCredenciales(tk.Toplevel):
                 compound='left',
                 command = lambda: self.guardar_cambios)
         self.boton_buscar_imagen.place(x=75,y=320)
-        tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
         tk.Label(self,text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre).pack(ipadx=75)
         tk.Label(self,text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.apellido).pack(ipadx=75)
-
+        tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
+        tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
+        tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
