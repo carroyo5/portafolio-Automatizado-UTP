@@ -30,6 +30,8 @@ class PantallaCredenciales(tk.Toplevel):
         self.facultad.set('Selecciona tu facultad')
         self.carrera = tk.StringVar()
         self.carrera.set('Selecciona tu carrera')
+        self.intereses = tk.StringVar()
+        
         
         #Texto que indica ayuda
         tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
@@ -52,6 +54,8 @@ class PantallaCredenciales(tk.Toplevel):
            command=self.seleccion_imagen)
         self.boton_buscar_imagen.place(x=75,y=265)
 
+
+
         #Funcion para cargar la imagen por defecto
         self.cargar_imagen_default()
 
@@ -69,18 +73,33 @@ class PantallaCredenciales(tk.Toplevel):
                                                         }))
         
         self.boton_buscar_imagen.place(x=75,y=320)
-        tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
-        tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
-        tk.Label(self,text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
-        tk.Entry(self, textvariable=self.nombre).pack(ipadx=75)
-        tk.Label(self,text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
-        tk.Entry(self, textvariable=self.apellido).pack(ipadx=75)
-        tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
-        tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
+        
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
         tk.OptionMenu(self, self.facultad, self.FACULTADES).pack()
+        
         tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
         tk.OptionMenu(self, self.carrera, self.CARRERAS).pack()
+
+        tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
+        tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
+
+        tk.Label(self,text='Introduce el nombre del profesor', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Entry(self, textvariable=self.nombre_profesor).pack(ipadx=75)
+
+        tk.Label(self,text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Entry(self, textvariable=self.nombre).pack(ipadx=75)
+
+        tk.Label(self,text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Entry(self, textvariable=self.apellido).pack(ipadx=75)
+
+        tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
+        tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
+        
+        tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
+
+        
+
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
