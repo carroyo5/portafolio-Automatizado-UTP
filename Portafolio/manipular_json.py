@@ -9,7 +9,7 @@ class manipularJson():
     def crear_json(self, datos_credenciales):
         self.ruta_completa = os.path.join(self.ruta_carpeta, 'credenciales.json')
         with open(self.ruta_completa, 'w') as credenciales:
-            json.dump(datos_credenciales, credenciales, sort_keys=True, indent=4)
+            json.dump(datos_credenciales, credenciales, indent=4)
     
     #Actualizar informacion del json
     def actualizar_json(self, nuevos_datos):
