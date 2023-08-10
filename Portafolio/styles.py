@@ -33,7 +33,7 @@ def get_app_style():
                  width=20, 
                  height=20, 
                  borderwidth=20, font=('Inter Bold', 12))
-
+  app_style.configure('')
   return app_style
 
 

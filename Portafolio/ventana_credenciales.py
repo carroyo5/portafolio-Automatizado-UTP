@@ -14,8 +14,11 @@ class PantallaCredenciales(tk.Toplevel):
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
         estilo = get_app_style()
-        self.FACULTADES = ['Arquitectura y Redes de Computadoras']
-        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación']
+        self.FACULTADES = ['Facultad de Ingeniería de Sistemas Computacionales', 
+                           'Facultad de Ciencias y tecnología', 'Facultad de Ingeniería Civil', 
+                           'Facultad de Ingenieria Industrial', 'Facultad de Ingenieria Mecánica']
+        #self.DEPARTAMENTOS  ['']
+        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación', ]
 
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
@@ -67,7 +70,6 @@ class PantallaCredenciales(tk.Toplevel):
                                                         'Facultad': self.convertir(self.facultad),
                                                         'Carrera': self.convertir(self.carrera)
                                                         }))
-        
         self.boton_buscar_imagen.place(x=75,y=320)
         tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
@@ -81,6 +83,11 @@ class PantallaCredenciales(tk.Toplevel):
         tk.OptionMenu(self, self.facultad, self.FACULTADES).pack()
         tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
         tk.OptionMenu(self, self.carrera, self.CARRERAS).pack()
+        self.combo_facultades = ttk.Combobox(self, values=self.FACULTADES, 
+                                        state='readonly', 
+                                        width=27, 
+                                        textvariable=self.facultad).pack()
+        self.combo_facultades.set('Selecciona tu facultad')
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
@@ -90,7 +97,6 @@ class PantallaCredenciales(tk.Toplevel):
         #Mensaje
         self.mensaje = '''Este es un mensaje de ayuda
         es posible hacer esto?'''
-
         #configuracion del mensaje de ayuda
         tk.Message(self.ventana_ayuda, text=self.mensaje, width=300).pack()
 
