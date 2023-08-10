@@ -13,8 +13,8 @@ class PantallaCredenciales(tk.Toplevel):
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
         estilo = get_app_style()
-        self.DEPARTAMENTOS = ['Arquitectura y Redes de Computadoras']
-        self.CARRERAS = ['']
+        self.FACULTADES = ['Selecciona tu facultad','Arquitectura y Redes de Computadoras']
+        self.CARRERAS = ['Selecciona tu carrera','Lic. en Ingenieria de Sistemas y computación']
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
@@ -24,7 +24,11 @@ class PantallaCredenciales(tk.Toplevel):
         self.cedula = tk.StringVar()
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
-
+        self.facultad = tk.StringVar()
+        self.facultad.set(self.FACULTADES[0])
+        self.carrera = tk.StringVar()
+        self.carrera.set(self.CARRERAS[0])
+        
         #Texto que indica ayuda
         tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
         #Configuracion del boton imagen
@@ -65,7 +69,9 @@ class PantallaCredenciales(tk.Toplevel):
         tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
         tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
+        tk.OptionMenu(self, self.facultad, self.FACULTADES).pack()
         tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
+        tk.OptionMenu(self, self.carrera, self.CARRERAS).pack()
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
