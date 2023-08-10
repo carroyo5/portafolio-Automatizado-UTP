@@ -14,8 +14,9 @@ class PantallaCredenciales(tk.Toplevel):
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
         estilo = get_app_style()
-        self.FACULTADES = ['Selecciona tu facultad','Arquitectura y Redes de Computadoras']
-        self.CARRERAS = ['Selecciona tu carrera','Lic. en Ingenieria de Sistemas y computación']
+        self.FACULTADES = ['Arquitectura y Redes de Computadoras']
+        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación']
+
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
@@ -26,9 +27,9 @@ class PantallaCredenciales(tk.Toplevel):
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
         self.facultad = tk.StringVar()
-        self.facultad.set(self.FACULTADES[0])
+        self.facultad.set('Selecciona tu facultad')
         self.carrera = tk.StringVar()
-        self.carrera.set(self.CARRERAS[0])
+        self.carrera.set('Selecciona tu carrera')
         
         #Texto que indica ayuda
         tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
@@ -62,7 +63,9 @@ class PantallaCredenciales(tk.Toplevel):
                 command = lambda: self.guardar_cambios({'Nombre': self.convertir(self.nombre),
                                                         'Apellido': self.convertir(self.apellido),
                                                         'Cedula': self.convertir(self.cedula),
-                                                        'Materia': self.convertir(self.nombre_materia)
+                                                        'Materia': self.convertir(self.nombre_materia),
+                                                        'Facultad': self.convertir(self.facultad),
+                                                        'Carrera': self.convertir(self.carrera)
                                                         }))
         
         self.boton_buscar_imagen.place(x=75,y=320)
@@ -128,5 +131,6 @@ class PantallaCredenciales(tk.Toplevel):
 
     def convertir(self, dato):
         return str(dato.get())
+    
 if __name__ == '__main__':
     PantallaCredenciales().mainloop()

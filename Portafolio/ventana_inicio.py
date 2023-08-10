@@ -5,7 +5,6 @@ from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
 import json
 from manipular_json import manipularJson
-import os 
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -13,6 +12,7 @@ class PantallaInicio(tk.Tk):
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
+        self.protocol("WM_DELETE_WINDOW", self.funcion_boton_salir)
         #Obtener los estilos del archivo styles
         estilo = get_app_style()
         #Titulo
