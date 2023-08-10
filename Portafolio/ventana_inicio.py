@@ -5,6 +5,7 @@ from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
 import json
 from manipular_json import manipularJson
+import os 
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -76,9 +77,14 @@ class PantallaInicio(tk.Tk):
         manipulador.borrar_json()
 
     def cargar_credenciales(self):
-        with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
-            datos = json.load(archivo)
-            print(datos)
+        manipulador = manipularJson()
+        manipulador.borrar_json()
+        if manipulador.existe_json():
+            with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
+                datos = json.load(archivo)
+                print(datos)
+        else:
+            pass
 
     def pantalla_credenciales(self):
         self.withdraw()

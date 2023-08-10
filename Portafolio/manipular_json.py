@@ -24,12 +24,8 @@ class manipularJson():
         else:
             pass
     
-if __name__ == '__main__':
-    datos_ejemplo = {"Nombre": 'Cristhian', 
-                    "Apellido": 'Arroyo',
-                    "Grupo del curso": '1IL-123',
-                    "Tareas": 'Tarea1',
-                    "Materia": 'Programacion avanzada',
-                    "Profesor": 'Jose Rangel'}
-    test = manipularJson()
-    test.crear_json(datos_ejemplo)
+    def existe_json(self):
+        if os.path.exists(self.ruta_completa):
+            return True
+        else:
+            return False

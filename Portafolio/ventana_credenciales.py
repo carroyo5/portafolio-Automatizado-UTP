@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 from styles import get_app_style
 from manipular_json import manipularJson
 import os
+
 class PantallaCredenciales(tk.Toplevel):
     def __init__(self, inicio)-> None:
         super().__init__(inicio)
@@ -58,7 +59,12 @@ class PantallaCredenciales(tk.Toplevel):
                 style='BotonGuardarCambios.TButton',
                 image=self.imagen_check,
                 compound='left',
-                command = lambda: self.guardar_cambios)
+                command = lambda: self.guardar_cambios({'Nombre': self.convertir(self.nombre),
+                                                        'Apellido': self.convertir(self.apellido),
+                                                        'Cedula': self.convertir(self.cedula),
+                                                        'Materia': self.convertir(self.nombre_materia)
+                                                        }))
+        
         self.boton_buscar_imagen.place(x=75,y=320)
         tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
@@ -119,6 +125,8 @@ class PantallaCredenciales(tk.Toplevel):
                 messagebox.showwarning('Error!', 'Debes introducir el nombre de la materia que estas cursando.').pack()
         except Exception as MensajeMateria:
             pass
-    
+
+    def convertir(self, dato):
+        return str(dato.get())
 if __name__ == '__main__':
     PantallaCredenciales().mainloop()
