@@ -13,7 +13,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.resizable(width=False, height=False)
         estilo = get_app_style()
         self.DEPARTAMENTOS = ['Arquitectura y Redes de Computadoras']
-        #Variables globales
+        #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
         self.grupo_curso = tk.StringVar()
@@ -21,6 +21,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.apellido = tk.StringVar()
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
+
         #Texto que indica ayuda
         tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
         #Configuracion del boton imagen
@@ -90,7 +91,7 @@ class PantallaCredenciales(tk.Toplevel):
             self.mostrar_imagen.config(image=archivo_seleccionado)
             self.mostrar_imagen.image = archivo_seleccionado
         else:
-            self.cargar_imagen_default
+            self.cargar_imagen_default()
 
     def guardar_cambios():
         pass

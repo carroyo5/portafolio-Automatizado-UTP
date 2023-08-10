@@ -1,5 +1,8 @@
 {
-  "nombre": "",
-  "apellido": "",
-  "foto" : ""
+    "Apellido": "Arroyo",
+    "Grupo del curso": "1IL-123",
+    "Materia": "Programacion avanzada",
+    "Nombre": "Cristhian",
+    "Profesor": "Jose Rangel",
+    "Tareas": "Tarea1"
 }
