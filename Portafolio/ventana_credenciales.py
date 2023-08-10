@@ -35,7 +35,6 @@ class PantallaCredenciales(tk.Toplevel):
         self.carrera.set('Selecciona tu carrera')
         self.intereses = tk.StringVar()
         
-        
         #Texto que indica ayuda
         tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
         #Configuracion del boton imagen
@@ -102,7 +101,10 @@ class PantallaCredenciales(tk.Toplevel):
         
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
+
         tk.Button(self, text='Volver', command=self.volver_inicio).pack()
+        self.checkbox()
+
     #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
     def boton_ayuda(self):
         #Configuracion del mensaje
@@ -143,6 +145,16 @@ class PantallaCredenciales(tk.Toplevel):
         else:
             archivo_json.crear_json(credenciales)
 
+    def checkbox(self):
+        self.estado_opcion1, self.estado_opcion2, self.estado_opcion3 
+        self.estado_opcion4, self.estado_opcion5 = tk.BooleanVar()
+        
+        ttk.Checkbutton(self, text='Tareas', variable=self.estado_opcion1).pack()
+        ttk.Checkbutton(self, text='Trabajos en clase', variable=self.estado_opcion2).pack()
+        ttk.Checkbutton(self, text='Proyectos', variable=self.estado_opcion3).pack()
+        ttk.Checkbutton(self, text='Laboratorios', variable=self.estado_opcion4).pack()
+        ttk.Checkbutton(self, text='Talleres', variable=self.estado_opcion5).pack()
+    
     #Comprobacion del estado de la informacion
     def comprobacion(self):
         try:

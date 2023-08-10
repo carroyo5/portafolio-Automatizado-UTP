@@ -4,8 +4,8 @@ from styles import get_app_style
 from manipular_json import manipularJson
 
 class PantallaCreacion(tk.Toplevel):
-  def __init__(self, inicio) -> None:
-        super().__init__(inicio)
+  def __init__(self, master) -> None:
+        super().__init__(master)
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
