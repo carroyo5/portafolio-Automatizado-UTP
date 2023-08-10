@@ -4,6 +4,7 @@ from tkinter import filedialog
 from styles import get_app_style
 from ventana_credenciales2 import PantallaCredenciales
 import json
+from manipular_json import manipularJson
 
 class PantallaInicio(tk.Tk):
     def __init__(self) -> None:
@@ -71,6 +72,8 @@ class PantallaInicio(tk.Tk):
     #Funcion del boton salir y cerrar la pantalla
     def funcion_boton_salir(self):
         self.destroy()
+        manipulador = manipularJson()
+        manipulador.borrar_json()
 
     def cargar_credenciales():
         with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:

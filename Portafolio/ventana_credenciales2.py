@@ -4,7 +4,8 @@ from tkinter import messagebox
 from tkinter import ttk
 from PIL import Image, ImageTk
 from styles import get_app_style
-
+from manipular_json import manipularJson
+import os
 class PantallaCredenciales(tk.Toplevel):
     def __init__(self, inicio)-> None:
         super().__init__(inicio)
@@ -93,8 +94,13 @@ class PantallaCredenciales(tk.Toplevel):
         else:
             self.cargar_imagen_default()
 
-    def guardar_cambios():
-        pass
+    def guardar_cambios(self, credenciales):
+        archivo_json = manipularJson()
+        if os.path.exists(archivo_json.ruta_completa):
+            archivo_json.actualizar_json(credenciales)
+        else:
+            archivo_json.crear_json(credenciales)
+
     #Comprobacion del estado de la informacion
     def comprobacion(self):
         try:

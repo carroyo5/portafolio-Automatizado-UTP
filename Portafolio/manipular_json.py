@@ -4,10 +4,10 @@ import os
 class manipularJson():   
     def __init__(self) -> None:
         self.ruta_carpeta = '.\\Portafolio\\usuario\\'
-
+        self.ruta_completa = os.path.join(self.ruta_carpeta, 'credenciales.json')
+        
     #Si el json no exxiste, se accedera a este metodo
     def crear_json(self, datos_credenciales):
-        self.ruta_completa = os.path.join(self.ruta_carpeta, 'credenciales.json')
         with open(self.ruta_completa, 'w') as credenciales:
             json.dump(datos_credenciales, credenciales, indent=4)
     
@@ -21,7 +21,12 @@ class manipularJson():
         with open(self.ruta_completa, 'w') as credenciales:
             json.dump(nuevos_datos, credenciales, indent=4)
     
-
+    def borrar_json(self)->None:
+        if os.path.exists(self.ruta_completa):
+            os.remove(self.ruta_completa)
+        else:
+            print('No existe')
+    
 if __name__ == '__main__':
     datos_ejemplo = {"Nombre": 'Cristhian', 
                     "Apellido": 'Arroyo',
