@@ -1,12 +1,14 @@
 import tkinter as tk 
 from tkinter import ttk 
 from tkinter import filedialog
+from tkinter import messagebox
 from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
 from ventana_creacion import PantallaCreacion
 import json
 from manipular_json import manipularJson
 import _tkinter
+from crear_portafolio import crearPortafolio
 
 class PantallaInicio(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
@@ -15,6 +17,7 @@ class PantallaInicio(tk.Tk):
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
         self.protocol("WM_DELETE_WINDOW", self.funcion_boton_salir)
+        self.carpeta_seleccionada = ''
         #Obtener los estilos del archivo styles
         estilo = get_app_style()
         #Titulo
@@ -37,20 +40,19 @@ class PantallaInicio(tk.Tk):
            style='BotonPersonalizado.TButton',
            image=self.imagen_buscador,
            compound='left', 
-           command= lambda: self.seleccion_carpeta)
+           command= lambda: self.seleccion_carpeta())
         self.boton_portafolio.pack()
         self.ruta = tk.Label(self, text='')
         self.ruta.pack()
 
     def boton_crear_portafolio(self):
-        self.imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
-        #Boton para crear un portafolio nuevo
-        self.boton_nuevo_portafolio = ttk.Button(text='Crear nuevo portafolio',
-                    style= 'EstiloBotonesInferiores.TButton',
-                    image= self.imagen_nuevo_portafolio,
-                    compound='left', command= self.pantalla_creacion
-                    ).place(x=80, y=200)
-    
+            self.imagen_nuevo_portafolio = tk.PhotoImage(file= r'.\Portafolio\imagenes\nuevo_archivo.png')
+            #Boton para crear un portafolio nuevo
+            self.boton_nuevo_portafolio = ttk.Button(text='Crear nuevo portafolio',
+                        style= 'EstiloBotonesInferiores.TButton',
+                        image= self.imagen_nuevo_portafolio,
+                        compound='left', command= self.crear_carpetas).place(x=80, y=200)
+
     def boton_credenciales(self):
            #Imagen de las credenciales
         self.imagen_credenciales = tk.PhotoImage(file= r'.\Portafolio\imagenes\credenciales.png')
@@ -72,15 +74,18 @@ class PantallaInicio(tk.Tk):
 
     #Funcion de seleccion de carpeta
     def seleccion_carpeta(self):
-        carpeta_seleccionada = filedialog.askdirectory()
-        if carpeta_seleccionada:
-            self.ruta.config(text=f'Ruta seleccionada: {carpeta_seleccionada}', 
+        self.carpeta_seleccionada = filedialog.askdirectory()
+        if self.carpeta_seleccionada:
+            self.ruta.config(text=f'Ruta seleccionada: {self.carpeta_seleccionada}', 
                         font=('Inter Bold', 12), 
                         foreground='#75AD3C')
         else:
             self.ruta.config(text='No se ha seleccionado ninguna carpeta.',
                         font=('Inter Bold', 12), 
                         foreground='red')
+
+    def crear_carpetas(self):
+            crear= crearPortafolio(self.carpeta_seleccionada)
 
     #Funcion del boton salir y cerrar la pantalla
     def funcion_boton_salir(self):
@@ -102,6 +107,6 @@ class PantallaInicio(tk.Tk):
             self.deiconify()
         except _tkinter.TclError as wm_command:
             print(wm_command)
-        
+
 if __name__ == '__main__':
     PantallaInicio().mainloop()

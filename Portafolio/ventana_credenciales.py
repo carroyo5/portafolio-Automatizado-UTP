@@ -7,6 +7,7 @@ from styles import get_app_style
 from manipular_json import manipularJson
 import os
 
+
 class PantallaCredenciales(tk.Toplevel):
     def __init__(self, master=None, *args, **kwargs) -> None:
         super().__init__(master,*args, **kwargs)
@@ -115,7 +116,7 @@ class PantallaCredenciales(tk.Toplevel):
                                                         'Trabajos en clase': self.convertir(self.variable_checkboxes[1]),
                                                         'Proyectos': self.convertir(self.variable_checkboxes[2]),
                                                         'Laboratorios': self.convertir(self.variable_checkboxes[3]),
-                                                        'Talleres': self.convertir(self.variable_checkboxes[4]),
+                                                        'Talleres': self.convertir(self.variable_checkboxes[4])
                                                         }))
         self.boton_guardar_cambios.place(x=75,y=320)
 
