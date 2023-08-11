@@ -9,7 +9,7 @@ class PantallaCreacion(tk.Toplevel):
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
-
+        
         #Obtener los estilos del archivo styles
         estilo = get_app_style()
 

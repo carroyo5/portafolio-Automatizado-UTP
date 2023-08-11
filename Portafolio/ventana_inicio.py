@@ -26,7 +26,6 @@ class PantallaInicio(tk.Tk):
         tk.Label(text='').pack()
         self.seleccionar_ruta_portafolio()
         #Cargar credenciales del usuario
-        self.cargar_credenciales()
         self.boton_crear_portafolio()
         self.boton_credenciales()
         self.boton_salir()
@@ -88,16 +87,6 @@ class PantallaInicio(tk.Tk):
         self.destroy()
         manipulador = manipularJson()
         manipulador.borrar_json()
-
-    def cargar_credenciales(self):
-        manipulador = manipularJson()
-        manipulador.borrar_json()
-        if manipulador.existe_json():
-            with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
-                datos = json.load(archivo)
-                print(datos)
-        else:
-            pass
 
     def pantalla_creacion(self):
         self.withdraw()

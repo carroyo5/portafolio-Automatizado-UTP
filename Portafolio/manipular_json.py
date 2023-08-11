@@ -23,7 +23,16 @@ class manipularJson():
             os.remove(self.ruta_completa)
         else:
             pass
-    
+
+    def cargar_credenciales(self):
+        self.borrar_json()
+        if self.existe_json():
+            with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
+                self.datos = json.load(archivo)
+                print(self.datos)
+        else:
+            pass
+
     def existe_json(self):
         if os.path.exists(self.ruta_completa):
             return True

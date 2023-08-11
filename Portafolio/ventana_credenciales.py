@@ -19,7 +19,6 @@ class PantallaCredenciales(tk.Toplevel):
                            'Facultad de Ingenieria Industrial', 'Facultad de Ingenieria Mecánica']
         self.DEPARTAMENTOS = ['Introduce el departamento']
         self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación', ]
-
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
@@ -34,45 +33,19 @@ class PantallaCredenciales(tk.Toplevel):
         self.carrera = tk.StringVar()
         self.carrera.set('Selecciona tu carrera')
         self.intereses = tk.StringVar()
-        
-        #Texto que indica ayuda
-        tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
-        #Configuracion del boton imagen
-        self.imagen_ayuda = tk.PhotoImage(file = r'.\Portafolio\imagenes\info_button.png')
-        tk.Button(self,image=self.imagen_ayuda, 
-                command= self.boton_ayuda, 
-                width= 38, height=38).place(x=1200, y=0)
         #titulo
         tk.Label(self, text='Credenciales', font=('Inter Bold', 16)).pack()
-        self.imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
-        #Label para mostrar la imagen
-        self.mostrar_imagen = tk.Label(self, width=200, height=200)
-        self.mostrar_imagen.place(x=95, y=50)
-
-        self.boton_buscar_imagen = ttk.Button(self, text='Buscar una imagen...',
-           style='BotonBuscarImagen.TButton',
-           image=self.imagen_buscador,
-           compound='left',
-           command=self.seleccion_imagen)
-        self.boton_buscar_imagen.place(x=75,y=265)
-
+        #Funcion para buscar imagen
+        self.boton_buscar_imagen()
         #Funcion para cargar la imagen por defecto
         self.cargar_imagen_default()
+        self.boton_ayuda()
+        self.boton_guardar_cambios()
+        self.entrada_credenciales()
+        self.checkbox()
+        tk.Button(self, text='Volver', command=self.volver_inicio).pack()
 
-        self.imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
-        self.boton_buscar_imagen = ttk.Button(self, text='Guardar cambios',
-                style='BotonGuardarCambios.TButton',
-                image=self.imagen_check,
-                compound='left',
-                command = lambda: self.guardar_cambios({'Nombre': self.convertir(self.nombre),
-                                                        'Apellido': self.convertir(self.apellido),
-                                                        'Cedula': self.convertir(self.cedula),
-                                                        'Materia': self.convertir(self.nombre_materia),
-                                                        'Facultad': self.convertir(self.facultad),
-                                                        'Carrera': self.convertir(self.carrera)
-                                                        }))
-        self.boton_buscar_imagen.place(x=75,y=320)
-        
+    def entrada_credenciales(self):
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
         ttk.Combobox(self, values=self.FACULTADES, 
                             state='readonly', 
@@ -98,15 +71,55 @@ class PantallaCredenciales(tk.Toplevel):
 
         tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
         tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
-        
+
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
 
-        tk.Button(self, text='Volver', command=self.volver_inicio).pack()
-        self.checkbox()
+        #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
 
-    #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
+    def boton_buscar_imagen(self):
+        self.imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
+        #Label para mostrar la imagen
+        self.mostrar_imagen = tk.Label(self, width=200, height=200)
+        self.mostrar_imagen.place(x=95, y=50)
+
+        self.boton_buscar_imagen = ttk.Button(self, text='Buscar una imagen...',
+           style='BotonBuscarImagen.TButton',
+           image=self.imagen_buscador,
+           compound='left',
+           command=self.seleccion_imagen)
+        self.boton_buscar_imagen.place(x=75,y=265)
+
     def boton_ayuda(self):
+        #Texto que indica ayuda
+        tk.Label(self, text="¿Necesitas ayuda? ¡Pulsa este boton!").place(x=1000, y=14)
+        #Configuracion del boton imagen
+        self.imagen_ayuda = tk.PhotoImage(file = r'.\Portafolio\imagenes\info_button.png')
+        tk.Button(self,image=self.imagen_ayuda, 
+                command= self.funcion_boton_ayuda, 
+                width= 38, height=38).place(x=1200, y=0)
+        
+    def boton_guardar_cambios(self):
+        self.imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
+        self.boton_guardar_cambios = ttk.Button(self, text='Guardar cambios',
+                style='BotonGuardarCambios.TButton',
+                image=self.imagen_check,
+                compound='left',
+                command = lambda: self.guardar_cambios({'Nombre': self.convertir(self.nombre),
+                                                        'Apellido': self.convertir(self.apellido),
+                                                        'Cedula': self.convertir(self.cedula),
+                                                        'Materia': self.convertir(self.nombre_materia),
+                                                        'Facultad': self.convertir(self.facultad),
+                                                        'Carrera': self.convertir(self.carrera),
+                                                        'Tareas': self.convertir(self.variable_checkboxes[0]),
+                                                        'Trabajos en clase': self.convertir(self.variable_checkboxes[1]),
+                                                        'Proyectos': self.convertir(self.variable_checkboxes[2]),
+                                                        'Laboratorios': self.convertir(self.variable_checkboxes[3]),
+                                                        'Talleres': self.convertir(self.variable_checkboxes[4]),
+                                                        }))
+        self.boton_guardar_cambios.place(x=75,y=320)
+
+    def funcion_boton_ayuda(self):
         #Configuracion del mensaje
         self.ventana_ayuda = tk.Toplevel(self)
         self.ventana_ayuda.resizable(width=False, height=False)
@@ -146,15 +159,13 @@ class PantallaCredenciales(tk.Toplevel):
             archivo_json.crear_json(credenciales)
 
     def checkbox(self):
-        self.estado_opcion1, self.estado_opcion2, self.estado_opcion3 
-        self.estado_opcion4, self.estado_opcion5 = tk.BooleanVar()
-        
-        ttk.Checkbutton(self, text='Tareas', variable=self.estado_opcion1).pack()
-        ttk.Checkbutton(self, text='Trabajos en clase', variable=self.estado_opcion2).pack()
-        ttk.Checkbutton(self, text='Proyectos', variable=self.estado_opcion3).pack()
-        ttk.Checkbutton(self, text='Laboratorios', variable=self.estado_opcion4).pack()
-        ttk.Checkbutton(self, text='Talleres', variable=self.estado_opcion5).pack()
-    
+        self.variable_checkboxes = []
+        opciones = ('Tareas', 'Trabajos en clase', 'Proyectos', 'Laboratorios', 'Talleres')
+        for opcion in opciones:
+            respuesta = tk.BooleanVar()
+            self.variable_checkboxes.append(respuesta)
+            ttk.Checkbutton(self, text=opcion, variable=respuesta).pack()
+
     #Comprobacion del estado de la informacion
     def comprobacion(self):
         try:
@@ -168,6 +179,9 @@ class PantallaCredenciales(tk.Toplevel):
         self.master.deiconify()
 
     def convertir(self, dato):
-        return str(dato.get())
+        if isinstance(dato, tk.StringVar):
+            return str(dato.get())
+        elif isinstance(dato, tk.BooleanVar):
+            return bool(dato.get())
 
 
