@@ -49,7 +49,7 @@ class crearPortafolio():
                 for nombre, condicion in credenciales_usuario['Subcarpeta_actividades'].items():
                     ruta_subcarpetas = os.path.join(ruta_completa, self.LISTA_CARPETAS[3])
                     if condicion:
-                        os.makedirs(nombre.upper())
+                        os.makedirs(os.path.join(ruta_subcarpetas, nombre.upper()))
         except Exception as e:
             print(e)
 
@@ -157,5 +157,5 @@ class crearPortafolio():
             return  str('Semestre I, '+str(fecha_actual.year))
 
 if __name__ == '__main__':
-    test = crearPortafolio(r'C:\Users\HP Envy\Downloads', 'Portafolio de Ejemplo')
+    test = crearPortafolio(r'C:\Users\HP Envy\Downloads', 'Portafolio de Ejemplo2')
     test.crear_portada()
