@@ -25,11 +25,10 @@ class manipularJson():
             pass
 
     def cargar_credenciales(self):
-        self.borrar_json()
         if self.existe_json():
             with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
                 self.datos = json.load(archivo)
-                print(self.datos)
+                return self.datos
         else:
             pass
 

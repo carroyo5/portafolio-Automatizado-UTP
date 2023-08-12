@@ -18,8 +18,8 @@ class PantallaCredenciales(tk.Toplevel):
         self.FACULTADES = ['Facultad de Ingeniería de Sistemas Computacionales', 
                            'Facultad de Ciencias y tecnología', 'Facultad de Ingeniería Civil', 
                            'Facultad de Ingenieria Industrial', 'Facultad de Ingenieria Mecánica']
-        self.DEPARTAMENTOS = ['Introduce el departamento']
-        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación', ]
+        self.DEPARTAMENTOS = ['Departamento de computacion y simulacion de sistemas']
+        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación']
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
@@ -57,9 +57,13 @@ class PantallaCredenciales(tk.Toplevel):
                             state='readonly', 
                             width=27, 
                             textvariable=self.carrera).pack()
+        
 
         tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
+
+        tk.Label(self,text='Introduce tu grupo', font=('Inter Bold',14)).pack(ipadx=75)
+        tk.Entry(self, textvariable=self.grupo_curso).pack(ipadx=75)
 
         tk.Label(self,text='Introduce el nombre del profesor', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre_profesor).pack(ipadx=75)
@@ -102,23 +106,34 @@ class PantallaCredenciales(tk.Toplevel):
         
     def boton_guardar_cambios(self):
         self.imagen_check = tk.PhotoImage(file = r'.\Portafolio\imagenes\check.png')
-        self.boton_guardar_cambios = ttk.Button(self, text='Guardar cambios',
-                style='BotonGuardarCambios.TButton',
-                image=self.imagen_check,
-                compound='left',
-                command = lambda: self.guardar_cambios({'Nombre': self.convertir(self.nombre),
-                                                        'Apellido': self.convertir(self.apellido),
-                                                        'Cedula': self.convertir(self.cedula),
-                                                        'Materia': self.convertir(self.nombre_materia),
-                                                        'Facultad': self.convertir(self.facultad),
-                                                        'Carrera': self.convertir(self.carrera),
-                                                        'Tareas': self.convertir(self.variable_checkboxes[0]),
-                                                        'Trabajos en clase': self.convertir(self.variable_checkboxes[1]),
-                                                        'Proyectos': self.convertir(self.variable_checkboxes[2]),
-                                                        'Laboratorios': self.convertir(self.variable_checkboxes[3]),
-                                                        'Talleres': self.convertir(self.variable_checkboxes[4])
-                                                        }))
-        self.boton_guardar_cambios.place(x=75,y=320)
+        self.boton_guardar_cambios = ttk.Button(
+            self,
+            text='Guardar cambios',
+            style='BotonGuardarCambios.TButton',
+            image=self.imagen_check,
+            compound='left',
+            command=lambda: self.guardar_cambios({
+                'Credenciales': {
+                    'Nombre': self.convertir(self.nombre),
+                    'Apellido': self.convertir(self.apellido),
+                    'Cedula': self.convertir(self.cedula),
+                    'Materia': self.convertir(self.nombre_materia),
+                    'Grupo': self.convertir(self.grupo_curso),
+                    'Profesor': self.convertir(self.nombre_profesor),
+                    'Facultad': self.convertir(self.facultad),
+                    'Carrera': self.convertir(self.carrera)
+                },
+                'Subcarpeta_actividades': {
+                    'Tareas': self.convertir(self.variable_checkboxes[0]),
+                    'Trabajos en clase': self.convertir(self.variable_checkboxes[1]),
+                    'Proyectos': self.convertir(self.variable_checkboxes[2]),
+                    'Laboratorios': self.convertir(self.variable_checkboxes[3]),
+                    'Talleres': self.convertir(self.variable_checkboxes[4])
+                }
+            })
+        )
+        self.boton_guardar_cambios.place(x=75, y=320)
+
 
     def funcion_boton_ayuda(self):
         #Configuracion del mensaje
