@@ -5,6 +5,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from styles import get_app_style
 from manipular_json import manipularJson
+import json
 import os
 
 
@@ -15,11 +16,6 @@ class PantallaCredenciales(tk.Toplevel):
         self.geometry('1280x720')
         self.resizable(width=False, height=False)
         estilo = get_app_style()
-        self.FACULTADES = ['Facultad de Ingeniería de Sistemas Computacionales', 
-                           'Facultad de Ciencias y tecnología', 'Facultad de Ingeniería Civil', 
-                           'Facultad de Ingenieria Industrial', 'Facultad de Ingenieria Mecánica']
-        self.DEPARTAMENTOS = ['Departamento de computacion y simulacion de sistemas']
-        self.CARRERAS = ['Lic. en Ingenieria de Sistemas y computación']
         #Variables globales para almcenar la informacion
         self.nombre_profesor = tk.StringVar()
         self.nombre_materia = tk.StringVar()
@@ -34,6 +30,8 @@ class PantallaCredenciales(tk.Toplevel):
         self.carrera = tk.StringVar()
         self.carrera.set('Selecciona tu carrera')
         self.intereses = tk.StringVar()
+        self.FACULTADES = self.obtener_facultades()
+        self.CARRERAS = ['1','2','3']
         #titulo
         tk.Label(self, text='Credenciales', font=('Inter Bold', 16)).pack()
         #Funcion para buscar imagen
@@ -41,42 +39,37 @@ class PantallaCredenciales(tk.Toplevel):
         #Funcion para cargar la imagen por defecto
         self.cargar_imagen_default()
         self.boton_ayuda()
-        self.boton_guardar_cambios()
+        self.boton_guardar_cambios()    
         self.entrada_credenciales()
         self.checkbox()
         tk.Button(self, text='Volver', command=self.volver_inicio).pack()
 
     def entrada_credenciales(self):
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
-        ttk.Combobox(self, values=self.FACULTADES, 
+        combobox_facultades = ttk.Combobox(self, values=self.FACULTADES, 
                             state='readonly', 
-                            width=27, 
-                            textvariable=self.facultad).pack()
+                            width=max(len(facultad) for facultad in self.FACULTADES), 
+                            textvariable=self.facultad)
+        combobox_facultades.pack()
+        combobox_facultades.bind('<<ComboboxSelected>>',self.actualizar_carreras)
         tk.Label(self,text='Selecciona tu carrera', font=('Inter Bold',14)).pack(ipady=5)
-        ttk.Combobox(self, values=self.CARRERAS, 
+        self.combobox_carrera = ttk.Combobox(self, values=self.CARRERAS, 
                             state='readonly', 
-                            width=27, 
-                            textvariable=self.carrera).pack()
-        
-
+                            width= 27, 
+                            textvariable=self.carrera)
+        self.combobox_carrera.pack()
         tk.Label(self,text='Introduce el nombre de la materia', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.nombre_materia).pack(ipadx=75)
-
         tk.Label(self,text='Introduce tu grupo', font=('Inter Bold',14)).pack(ipadx=75)
         tk.Entry(self, textvariable=self.grupo_curso).pack(ipadx=75)
-
         tk.Label(self,text='Introduce el nombre del profesor', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre_profesor).pack(ipadx=75)
-
         tk.Label(self,text='Introduce tu nombre', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.nombre).pack(ipadx=75)
-
         tk.Label(self,text='Introduce tu apellido', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.apellido).pack(ipadx=75)
-
         tk.Label(self, text='Introduce la cedula', font=('Inter Bold',14)).pack()
         tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
-
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
 
@@ -121,7 +114,8 @@ class PantallaCredenciales(tk.Toplevel):
                     'Grupo': self.convertir(self.grupo_curso),
                     'Profesor': self.convertir(self.nombre_profesor),
                     'Facultad': self.convertir(self.facultad),
-                    'Carrera': self.convertir(self.carrera)
+                    'Carrera': self.convertir(self.carrera),
+
                 },
                 'Subcarpeta_actividades': {
                     'Tareas': self.convertir(self.variable_checkboxes[0]),
@@ -200,4 +194,28 @@ class PantallaCredenciales(tk.Toplevel):
         elif isinstance(dato, tk.BooleanVar):
             return bool(dato.get())
 
+    def obtener_facultades(self):
+        lista_facultades = []
+        with open(r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8') as archivo:
+            datos = json.load(archivo)
+        for facultad in datos['Facultades']:
+            lista_facultades.append(facultad)
+        return lista_facultades
+    
+    def actualizar_carreras(self, event):
+            facultad_seleccionada = self.facultad.get()
+            self.obtener_carreras(facultad_seleccionada)
+            return
+
+    def obtener_carreras(self,facultad_seleccionada):
+        with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
+            datos_carrera = json.load(archivo)
+
+        if facultad_seleccionada == 'Selecciona tu facultad':
+            return
+        else:
+            self.CARRERAS.clear()
+            self.CARRERAS.extend(datos_carrera['Carreras'][facultad_seleccionada])
+            self.combobox_carrera['values'] = self.CARRERAS
+            self.combobox_carrera['width'] = int(max(len(carrera) for carrera in self.CARRERAS)) - 8
 

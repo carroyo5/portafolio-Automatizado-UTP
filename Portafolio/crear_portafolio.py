@@ -14,7 +14,6 @@ class crearPortafolio():
                     'ACTIVIDADES O ASIGNACIONES', 
                     'MATERIAL DIDACTICO DEL CURSO',
                     'CONCLUSIÓN']
-    
     def __init__(self, ruta_predefinda, nombre_carpeta) -> None:
         self.ruta_carpeta = ruta_predefinda
         self.nombre_carpeta = nombre_carpeta
@@ -65,9 +64,6 @@ class crearPortafolio():
         table = self.doc.add_table(rows=1, cols=3)
         table.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         table.autofit = False
-        
-        # Ajustar el ancho de las celdas
-
 
         # Obtener la primera celda (izquierda) y añadir una imagen
         cell_izquierda = table.cell(0, 0)
@@ -170,7 +166,7 @@ class crearPortafolio():
         cell_centro.width = Cm(13)
         # Obtener la tercera celda (derecha) y añadir una imagen
         cell_derecha = table.cell(0, 2)
-        cell_derecha.width = Cm(2.3)
+        cell_derecha.width = Cm(2.4)
         run_derecha = cell_derecha.paragraphs[0].add_run()
         imagen_derecha = run_derecha.add_picture(r'.\Portafolio\imagenes\logo_fisc.png', width=Cm(2.2))
 

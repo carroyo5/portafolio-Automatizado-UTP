@@ -1,0 +1,83 @@
+{
+    "Facultades":{
+        "Facultad de Ingeniería Civil":"",
+        "Facultad de Ingeniería Eléctrica":"",
+        "Facultad de Ingeniería Industrial": "",
+        "Facultad de Ingeniería Mecánica": "",
+        "Facultad de Ingeniería de Sistemas Computacionales":""
+    },
+    "Departamentos":{
+        "Departamento de Computación y Simulación de Sistemas":"",
+        "Departamento de Arquitectura y Redes de Computadoras":"",
+        "Departamento de Ingeniería de Software": "",
+        "Departamento de Programación de Computadoras": "",
+        "Departamento de Sistemas de Información, Control y Evaluación de Recursos Informáticos": ""
+    },
+    "Carreras": {
+        "Facultad de Ingeniería Civil": {
+            "Licenciatura en Ingeniería en Administración de Proyectos de Construcción":"",
+            "Licenciatura en Ingeniería Ambiental":"",
+            "Licenciatura en Ingeniería Civil":"",
+            "Licenciatura en Ingeniería Geológica":"",
+            "Licenciatura en Ingeniería Geomática":"",
+            "Licenciatura en Ingeniería Marítima Portuaria":"",
+            "Licenciatura en Dibujo Automatizado":"",
+            "Licenciatura en Edificaciones":"",
+            "Licenciatura en Operaciones Marítimas y Portuarias":"",
+            "Licenciatura en Saneamiento y Ambiente":"",
+            "Licenciatura en Topografía":""
+        },
+        "Facultad de Ingeniería Eléctrica":{
+            "Licenciatura en Ingeniería Eléctrica":"",
+            "Licenciatura en Ingeniería Eléctrica y Electrónica":"",
+            "Licenciatura en Ingeniería Electromecánica":"",
+            "Licenciatura en Ingeniería Electrónica y Telecomunicaciones":"",
+            "Técnico en Ingeniería con especialización en Electrónica Biomédica":"",
+            "Técnico en Ingeniería con especialización en Sistemas Eléctricos":"",
+            "Técnico en Ingeniería con especialización en Telecomunicaciones":""
+        },
+        "Facultad de Ingeniería Industrial":{
+            "Licenciatura en Ingeniería Industrial":"",
+            "Licenciatura en Ingeniería Logística y Cadena de Suministro":"",
+            "Licenciatura en Ingeniería Mecánica Industrial":"",
+            "Licenciatura en Ingeniería en Seguridad Industrial e Higiene Ocupacional":"",
+            "Licenciatura en Gestión Administrativa":"",
+            "Licenciatura en Gestión de la Producción Industrial":"",
+            "Licenciatura en Logística y Transporte Multimodal":"",
+            "Licenciatura en Mercadeo y Negocios Internacionales":"",
+            "Licenciatura en Recursos Humanos y Gestión de la Productividad":""    
+        },
+        "Facultad de Ingeniería Mecánica": {
+            "Licenciatura en Ingeniería Aeronáutica":"",
+            "Licenciatura en Ingeniería de Energía y Ambiente":"",
+            "Licenciatura en Ingeniería de Mantenimiento":"",
+            "Licenciatura en Ingeniería Mecánica":"",
+            "Licenciatura en Ingeniería Naval":"",
+            "Licenciatura en Administración de Aviación":"",
+            "Licenciatura en Administración de Aviación con opción a vuelo (Piloto)":"",
+            "Licenciatura en Mecánica Automotriz":"",
+            "Licenciatura en Mecánica Industrial":"",
+            "Licenciatura en Refrigeración y Aire Acondicionado":"",
+            "Licenciatura en Soldadura":"",
+            "Técnico en Despacho de Vuelo":"",
+            "Técnico en Ingeniería de Mantenimiento de Aeronaves con especialización en Motores y Fuselajes":""
+        },
+        "Facultad de Ingeniería de Sistemas Computacionales": {
+            "Licenciatura en Ingeniería de Sistemas de Información":"",
+            "Licenciatura en Ingeniería de Sistemas de Información Gerencial":"",
+            "Licenciatura en Ingeniería de Sistemas y Computación":"",
+            "Licenciatura en Ingeniería de Software":"",
+            "Licenciatura en Ciberseguridad":"",
+            "Licenciatura en Ciencias de la Computación":"",
+            "Licenciatura en Desarrollo y Gestión de Software":"",
+            "Licenciatura en Informática Aplicada a la Educación":"",
+            "Licenciatura en Redes Informáticas":"",
+            "Técnico en Informática para la Gestión Empresarial":""
+        },
+        "Facultad de Ciencias y Tecnología": {
+            "Licenciatura en Ingeniería en Alimentos":"",
+            "Licenciatura en Ingeniería Forestal":"",
+            "Licenciatura en Comunicación Ejecutiva Bilingüe":""
+            }
+    }
+}
