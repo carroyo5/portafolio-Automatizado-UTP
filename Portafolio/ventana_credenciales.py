@@ -117,7 +117,7 @@ class PantallaCredenciales(tk.Toplevel):
                     'Facultad': self.convertir(self.facultad),
                     'Carrera': self.convertir(self.carrera),
                 },
-                'Subcarpeta_actividades': {
+                'Subcarpeta_actividades':{
                     'Tareas': self.convertir(self.variable_checkboxes[0]),
                     'Trabajos en clase': self.convertir(self.variable_checkboxes[1]),
                     'Proyectos': self.convertir(self.variable_checkboxes[2]),
@@ -175,14 +175,6 @@ class PantallaCredenciales(tk.Toplevel):
             respuesta = tk.BooleanVar()
             self.variable_checkboxes.append(respuesta)
             ttk.Checkbutton(self, text=opcion, variable=respuesta).pack()
-
-    #Comprobacion del estado de la informacion
-    def comprobacion(self):
-        try:
-            if len(str(self.nombreMateria.get())) == 0:
-                messagebox.showwarning('Error!', 'Debes introducir el nombre de la materia que estas cursando.').pack()
-        except Exception as MensajeMateria:
-            pass
 
     def volver_inicio(self):
         self.destroy()
@@ -242,4 +234,41 @@ class PantallaCredenciales(tk.Toplevel):
             self.CARRERAS.extend(datos_carrera['Carreras'][facultad_seleccionada])
             self.combobox_carrera['values'] = self.CARRERAS
             self.combobox_carrera['width'] = int(max(len(carrera) for carrera in self.CARRERAS)) - 8
+        
+        #Comprobacion del estado de la informacion
+    def comprobacion(self):
 
+        try:
+            if len(self.nombreMateria.get()) == 0:
+                messagebox.showwarning('Error!', 'Debes introducir el nombre de la materia que estas cursando.').pack()
+                return
+            elif len(self.nombre.get()) == 0:
+                messagebox.showwarning('Error!', 'Debes introducir tu nombre antes de guardar los cambios.').pack()
+                return
+            elif len(self.apellido.get()) == 0:
+                messagebox.showwarning('Error!', 'Debes introducir tu apellido antes de guardar los cambios.').pack()
+                return
+            elif len(self.grupo_curso.get()) == 0:
+                messagebox.showwarning('Error!', 'Debes introducir el grupo del curso en el que te encuentras antes de continuar.').pack()
+                return
+            elif len(self.nombre_profesor.get()) == 0:
+                messagebox.showwarning('Error!', '¡Necesitamos saber el nombre de tu profesor para hacer el portafolio!.').pack()
+                return
+            elif len(self.facultad.get()) == 'Selecciona tu facultad':
+                messagebox.showwarning('Error!', 'Debes elegir una de las facultades para poder continuar.').pack()
+                return
+            elif len(self.carrera.get()) == 'Selecciona tu carrera':
+                messagebox.showwarning('Error!', 'Debes elegir una de las carreras para poder continuar.').pack()
+                return
+            #Comprobar que la carrera esta dentro de la facultad que se eligió
+            else:
+                with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
+                    datos = json.load(archivo)
+                facultad_seleccionada = self.facultad.get()
+                carrera_seleccionada = self.carrera.get()
+                carreras = list(datos['Carreras'][facultad_seleccionada])
+                if not carrera_seleccionada in carreras:
+                    messagebox.showerror('ERROR', 'Intenta elegir una carrera dentro de tu facultad')
+                    return
+        except Exception as e:
+            messagebox.showerror('ERROR', f'Hubo un error inesperado, reinicia el programa :(.{e}')

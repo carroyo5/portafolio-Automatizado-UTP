@@ -86,13 +86,12 @@ class crearPortafolio():
         font.size = Pt(13)
         parrafo_centro.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         if facultad_seleccionada == 'Facultad de Ingeniería de Sistemas Computacionales':  
-            parrafo_centro = cell_centro.add_paragraph(credenciales_usuario['Credenciales'][''])
+            parrafo_centro = cell_centro.add_paragraph(credenciales_usuario['Credenciales']['Departamento'])
             run = parrafo_centro.runs[0]
             font = run.font
             font.name = 'Arial'
             font.size = Pt(13)
             parrafo_centro.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-
         parrafo_centro = cell_centro.add_paragraph(credenciales_usuario['Credenciales']['Carrera'])
         run = parrafo_centro.runs[0]
         font = run.font
