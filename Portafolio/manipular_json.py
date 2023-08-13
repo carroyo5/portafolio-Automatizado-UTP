@@ -26,7 +26,7 @@ class manipularJson():
 
     def cargar_credenciales(self):
         if self.existe_json():
-            with open(r'.\Portafolio\usuario\credenciales.json', 'r') as archivo:
+            with open(r'.\Portafolio\usuario\credenciales.json', 'r', encoding='utf-8') as archivo:
                 self.datos = json.load(archivo)
                 return self.datos
         else:

@@ -6,7 +6,9 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 import datetime
 from manipular_json import manipularJson
 from docx2pdf import convert
-
+import pptx
+from pptx.util import Inches, Pt
+from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT
 class crearPortafolio():
     LISTA_CARPETAS = ['PORTADA', 
                     'DESCRIPCIÓN DEL CURSO',
@@ -30,6 +32,7 @@ class crearPortafolio():
                 os.makedirs(ruta_completa)
         except FileExistsError:
             messagebox.showwarning('Advertencia', 'El portafolio que estás intentando crear ya existe, prueba con otro nombre.')
+            return
         #Carear subcarpetas del portafolio
         try:
             if os.path.exists(ruta_completa):
@@ -38,6 +41,7 @@ class crearPortafolio():
                     os.makedirs(ruta_subcarpetas)
             else:
                 messagebox.showwarning('Advertencia', 'La carpeta principal del portafolio no existe, intentalo de nuevo.')
+                return
         except Exception as h:
             print(h)
         
@@ -57,6 +61,7 @@ class crearPortafolio():
 
     def crear_portada(self):
         self.doc = docx.Document()
+
         cargar_datos = manipularJson()
         credenciales_usuario = cargar_datos.cargar_credenciales()
         facultad_seleccionada = credenciales_usuario['Credenciales']['Facultad']
@@ -207,7 +212,39 @@ class crearPortafolio():
             return str('Verano, '+str(fecha_actual.year))
         else:
             return  str('Semestre I, '+str(fecha_actual.year))
+    
+    def crear_presentacion_personal(self):
+        cargar_datos = manipularJson()
+        credenciales_usuario = cargar_datos.cargar_credenciales()
+        ppt = pptx.Presentation()
+        slide_layout = ppt.slide_layouts[1]
+        slide = ppt.slides.add_slide(slide_layout)
+        title = slide.shapes.title
+        content = slide.placeholders[1]
+        print(content.text_frame.paragraphs[0].level)
+        title.text = str(credenciales_usuario['Credenciales']['Nombre']+' '+credenciales_usuario['Credenciales']['Apellido'])
+        content.text = str(credenciales_usuario['Credenciales']['Intereses'])
+        img_path = str(credenciales_usuario['Credenciales']['Ruta Foto de Perfil'])
+        title.text_frame.paragraphs[0].font.bold = True
+        title.text_frame.paragraphs[0].font.size = Pt(44)
+        title.text_frame.paragraphs[0].font.name = 'Arial'
+        content.text_frame.paragraphs[0].font.size = Pt(16)
+        content.text_frame.paragraphs[0].font.name = 'Arial'
+        left, top, width, height = Inches(0.5), Inches(2), Inches(3.5), Inches(3.5)
+        slide.shapes.add_picture(img_path, left, top, width, height)
+        left_content = Inches(4.2)
+        top_content = top  
+        width_content = Inches(5) 
+        height_content = height
+        content.text_frame.paragraphs[0].alignment = PP_PARAGRAPH_ALIGNMENT.JUSTIFY
+        content.left = left_content
+        content.top = top_content
+        content.width = width_content
+        content.height = height_content
+        # Configurar el formato del párrafo para eliminar las viñetas
+        ppt.save('Presentacion Personal.pptx')
 
 if __name__ == '__main__':
     test = crearPortafolio(r'C:\Users\HP Envy\Downloads', 'Portafolio de Ejemplo')
-    test.crear_portada()
+    #test.crear_portada()
+    test.crear_presentacion_personal()

@@ -8,7 +8,6 @@ from manipular_json import manipularJson
 import json
 import os
 
-
 class PantallaCredenciales(tk.Toplevel):
     def __init__(self, master=None, *args, **kwargs) -> None:
         super().__init__(master,*args, **kwargs)
@@ -25,6 +24,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.cedula = tk.StringVar()
         self.departamento = tk.StringVar()
         self.ruta_tareas = tk.StringVar()
+        self.imagen_seleccionada = ''
         self.facultad = tk.StringVar()
         self.facultad.set('Selecciona tu facultad')
         self.carrera = tk.StringVar()
@@ -111,6 +111,8 @@ class PantallaCredenciales(tk.Toplevel):
                     'Apellido': self.convertir(self.apellido),
                     'Cedula': self.convertir(self.cedula),
                     'Materia': self.convertir(self.nombre_materia),
+                    'Intereses': self.convertir(self.intereses),
+                    'Ruta Foto de Perfil': self.imagen_seleccionada,
                     'Grupo': self.convertir(self.grupo_curso),
                     'Departamento': self.seleccion_departamento(),
                     'Profesor': self.convertir(self.nombre_profesor),
@@ -127,7 +129,6 @@ class PantallaCredenciales(tk.Toplevel):
             })
         )
         self.boton_guardar_cambios.place(x=75, y=320)
-
 
     def funcion_boton_ayuda(self):
         #Configuracion del mensaje
@@ -150,9 +151,9 @@ class PantallaCredenciales(tk.Toplevel):
 
     #Funcion para seleccionar carpetas
     def seleccion_imagen(self):
-        imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
-        if imagen_seleccionada:
-            archivo_seleccionado = Image.open(imagen_seleccionada)
+        self.imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
+        if self.imagen_seleccionada:
+            archivo_seleccionado = Image.open(self.imagen_seleccionada)
             archivo_seleccionado = archivo_seleccionado.resize((200, 200))
             archivo_seleccionado = ImageTk.PhotoImage(archivo_seleccionado)
             self.mostrar_imagen.config(image=archivo_seleccionado)
@@ -254,12 +255,16 @@ class PantallaCredenciales(tk.Toplevel):
             elif len(self.nombre_profesor.get()) == 0:
                 messagebox.showwarning('Error!', '¡Necesitamos saber el nombre de tu profesor para hacer el portafolio!.').pack()
                 return
-            elif len(self.facultad.get()) == 'Selecciona tu facultad':
+            elif self.facultad.get() == 'Selecciona tu facultad':
                 messagebox.showwarning('Error!', 'Debes elegir una de las facultades para poder continuar.').pack()
                 return
-            elif len(self.carrera.get()) == 'Selecciona tu carrera':
+            elif self.carrera.get() == 'Selecciona tu carrera':
                 messagebox.showwarning('Error!', 'Debes elegir una de las carreras para poder continuar.').pack()
                 return
+            elif len(self.imagen_seleccionada) == 0:
+                 messagebox.showwarning('Error!', 'Debes seleccionar una foto de perfil antes de continuar.').pack()
+            elif len(self.intereses) == 0:
+                 messagebox.showwarning('Error!', 'Debes hablarnos un poco de ti para poder continuar ;).').pack()
             #Comprobar que la carrera esta dentro de la facultad que se eligió
             else:
                 with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
@@ -270,5 +275,6 @@ class PantallaCredenciales(tk.Toplevel):
                 if not carrera_seleccionada in carreras:
                     messagebox.showerror('ERROR', 'Intenta elegir una carrera dentro de tu facultad')
                     return
+            
         except Exception as e:
             messagebox.showerror('ERROR', f'Hubo un error inesperado, reinicia el programa :(.{e}')
