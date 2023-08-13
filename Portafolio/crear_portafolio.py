@@ -57,7 +57,8 @@ class crearPortafolio():
             print(e)
 
     def mover_archivos(self, carpeta_origen, carpetaDestino):
-        pass
+        if os.path.exists(carpeta_origen):
+            pass
 
     def crear_portada(self):
         self.doc = docx.Document()

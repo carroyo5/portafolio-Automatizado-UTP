@@ -65,7 +65,7 @@ class PantallaInicio(tk.Tk):
 
     def boton_salir(self):
         #Imagen para salir
-        self.imagen_salir = tk.PhotoImage(file= r'.\Portafolio\imagenes\salir.png')
+        self.imagen_salir = tk.PhotoImage(file= r'.\Portafolio\imagenes\salir2.png')
         self.boton_salir = ttk.Button(text='Salir',
             style= 'EstiloBotonesInferiores.TButton',
             image= self.imagen_salir,

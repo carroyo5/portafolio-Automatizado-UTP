@@ -42,7 +42,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.boton_guardar_cambios()    
         self.entrada_credenciales()
         self.checkbox()
-        tk.Button(self, text='Volver', command=self.volver_inicio).pack()
+        self.boton_volver()
 
     def entrada_credenciales(self):
         tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
@@ -72,9 +72,13 @@ class PantallaCredenciales(tk.Toplevel):
         tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
-
-        #Mensaje de ayuda para mostrarle al usuario como se usa el programa.
-
+    def boton_volver(self):
+        self.img_volver = tk.PhotoImage(file=r'.\Portafolio\imagenes\salir.png')
+        ttk.Button(self, text='Volver',
+                   image=self.img_volver,
+                   compound='left', 
+                command=self.volver_inicio).pack()
+          
     def boton_buscar_imagen(self):
         self.imagen_buscador = tk.PhotoImage(file = r'.\Portafolio\imagenes\imagen_buscador.png')
         #Label para mostrar la imagen
@@ -163,11 +167,13 @@ class PantallaCredenciales(tk.Toplevel):
 
     #Metodo para manipular la informacion de los credenciales con el json
     def guardar_cambios(self, credenciales):
-        archivo_json = manipularJson()
-        if os.path.exists(archivo_json.ruta_completa):
-            archivo_json.actualizar_json(credenciales)
-        else:
-            archivo_json.crear_json(credenciales)
+        if not self.comprobacion():
+            archivo_json = manipularJson()
+            if os.path.exists(archivo_json.ruta_completa):
+                archivo_json.actualizar_json(credenciales)
+            else:
+                archivo_json.crear_json(credenciales)
+            messagebox.showinfo("Mensaje", "Tus credenciales se han guardado exitosamente!")
 
     def checkbox(self):
         self.variable_checkboxes = []
@@ -205,24 +211,27 @@ class PantallaCredenciales(tk.Toplevel):
             datos = json.load(archivo)
         facultad_seleccionada = self.facultad.get()
         carrera_seleccionada = self.carrera.get()
-        carreras = list(datos['Carreras'][facultad_seleccionada])
-        departamentos = list(datos['Departamentos'])
-        if facultad_seleccionada =='Facultad de Ingeniería de Sistemas Computacionales':
-            try:
-                if carrera_seleccionada in [carreras[8], carreras[4]]:
-                    return str(departamentos[1])
-                elif carrera_seleccionada in [carreras[2], carreras[5], carreras[7]]:
-                    return str(departamentos[0])
-                elif carrera_seleccionada == carreras[3]:
-                    return str(departamentos[2])
-                elif carrera_seleccionada in [carreras[6], carreras[11], carreras[10], carreras[12]]:
-                    return str(departamentos[3])
-                elif carrera_seleccionada in [carreras[0], carreras[1], carreras[9]]:
-                    return str(departamentos[4])
-            except Exception as e:
-                print (e)
+        if facultad_seleccionada == 'Selecciona tu facultad':
+            return
         else:
-            return None
+            carreras = list(datos['Carreras'][facultad_seleccionada])
+            departamentos = list(datos['Departamentos'])
+            if facultad_seleccionada =='Facultad de Ingeniería de Sistemas Computacionales':
+                try:
+                    if carrera_seleccionada in [carreras[8], carreras[4]]:
+                        return str(departamentos[1])
+                    elif carrera_seleccionada in [carreras[2], carreras[5], carreras[7]]:
+                        return str(departamentos[0])
+                    elif carrera_seleccionada == carreras[3]:
+                        return str(departamentos[2])
+                    elif carrera_seleccionada in [carreras[6], carreras[11], carreras[10], carreras[12]]:
+                        return str(departamentos[3])
+                    elif carrera_seleccionada in [carreras[0], carreras[1], carreras[9]]:
+                        return str(departamentos[4])
+                except Exception as e:
+                    print (e)
+            else:
+                return None
     
     def obtener_carreras(self,facultad_seleccionada):
         with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
@@ -238,33 +247,34 @@ class PantallaCredenciales(tk.Toplevel):
         
         #Comprobacion del estado de la informacion
     def comprobacion(self):
-
         try:
-            if len(self.nombreMateria.get()) == 0:
-                messagebox.showwarning('Error!', 'Debes introducir el nombre de la materia que estas cursando.').pack()
-                return
+            if len(self.nombre_materia.get()) == 0:
+                messagebox.showwarning('Error!', 'Debes introducir el nombre de la materia que estas cursando.')
+                return True
             elif len(self.nombre.get()) == 0:
-                messagebox.showwarning('Error!', 'Debes introducir tu nombre antes de guardar los cambios.').pack()
-                return
+                messagebox.showwarning('Error!', 'Debes introducir tu nombre antes de guardar los cambios.')
+                return True
             elif len(self.apellido.get()) == 0:
-                messagebox.showwarning('Error!', 'Debes introducir tu apellido antes de guardar los cambios.').pack()
-                return
+                messagebox.showwarning('Error!', 'Debes introducir tu apellido antes de guardar los cambios.')
+                return True
             elif len(self.grupo_curso.get()) == 0:
-                messagebox.showwarning('Error!', 'Debes introducir el grupo del curso en el que te encuentras antes de continuar.').pack()
-                return
+                messagebox.showwarning('Error!', 'Debes introducir el grupo del curso en el que te encuentras antes de continuar.')
+                return True
             elif len(self.nombre_profesor.get()) == 0:
-                messagebox.showwarning('Error!', '¡Necesitamos saber el nombre de tu profesor para hacer el portafolio!.').pack()
-                return
+                messagebox.showwarning('Error!', '¡Necesitamos saber el nombre de tu profesor para hacer el portafolio!.')
+                return True
             elif self.facultad.get() == 'Selecciona tu facultad':
-                messagebox.showwarning('Error!', 'Debes elegir una de las facultades para poder continuar.').pack()
-                return
+                messagebox.showwarning('Error!', 'Debes elegir una de las facultades para poder continuar.')
+                return True
             elif self.carrera.get() == 'Selecciona tu carrera':
-                messagebox.showwarning('Error!', 'Debes elegir una de las carreras para poder continuar.').pack()
-                return
+                messagebox.showwarning('Error!', 'Debes elegir una de las carreras para poder continuar.')
+                return True
             elif len(self.imagen_seleccionada) == 0:
-                 messagebox.showwarning('Error!', 'Debes seleccionar una foto de perfil antes de continuar.').pack()
-            elif len(self.intereses) == 0:
-                 messagebox.showwarning('Error!', 'Debes hablarnos un poco de ti para poder continuar ;).').pack()
+                 messagebox.showwarning('Error!', 'Debes seleccionar una foto de perfil antes de continuar.')
+                 return True
+            elif len(self.intereses.get()) == 0:
+                 messagebox.showwarning('Error!', 'Debes hablarnos un poco de ti para poder continuar ;).')
+                 return True
             #Comprobar que la carrera esta dentro de la facultad que se eligió
             else:
                 with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
@@ -274,7 +284,7 @@ class PantallaCredenciales(tk.Toplevel):
                 carreras = list(datos['Carreras'][facultad_seleccionada])
                 if not carrera_seleccionada in carreras:
                     messagebox.showerror('ERROR', 'Intenta elegir una carrera dentro de tu facultad')
-                    return
-            
+                    return True
+            return False
         except Exception as e:
             messagebox.showerror('ERROR', f'Hubo un error inesperado, reinicia el programa :(.{e}')
