@@ -214,8 +214,6 @@ class PantallaCredenciales(tk.Toplevel):
         carrera_seleccionada = self.carrera.get()
         carreras = list(datos['Carreras'][facultad_seleccionada])
         departamentos = list(datos['Departamentos'])
-        print(carreras)
-        index ='Facultad de Ingeniería de Sistemas Computacionales'
         if facultad_seleccionada =='Facultad de Ingeniería de Sistemas Computacionales':
             try:
                 if carrera_seleccionada in [carreras[8], carreras[4]]:
