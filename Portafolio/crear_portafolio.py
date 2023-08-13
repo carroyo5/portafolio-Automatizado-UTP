@@ -59,12 +59,11 @@ class crearPortafolio():
         self.doc = docx.Document()
         cargar_datos = manipularJson()
         credenciales_usuario = cargar_datos.cargar_credenciales()
-        
+        facultad_seleccionada = credenciales_usuario['Credenciales']['Facultad']
        # Crear una tabla con una fila y tres celdas
         table = self.doc.add_table(rows=1, cols=3)
         table.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         table.autofit = False
-
         # Obtener la primera celda (izquierda) y añadir una imagen
         cell_izquierda = table.cell(0, 0)
         cell_izquierda.width = Cm(2.3)
@@ -86,6 +85,13 @@ class crearPortafolio():
         font.name = 'Arial'
         font.size = Pt(13)
         parrafo_centro.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        if facultad_seleccionada == 'Facultad de Ingeniería de Sistemas Computacionales':  
+            parrafo_centro = cell_centro.add_paragraph(credenciales_usuario['Credenciales'][''])
+            run = parrafo_centro.runs[0]
+            font = run.font
+            font.name = 'Arial'
+            font.size = Pt(13)
+            parrafo_centro.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
         parrafo_centro = cell_centro.add_paragraph(credenciales_usuario['Credenciales']['Carrera'])
         run = parrafo_centro.runs[0]
@@ -168,8 +174,19 @@ class crearPortafolio():
         cell_derecha = table.cell(0, 2)
         cell_derecha.width = Cm(2.4)
         run_derecha = cell_derecha.paragraphs[0].add_run()
-        imagen_derecha = run_derecha.add_picture(r'.\Portafolio\imagenes\logo_fisc.png', width=Cm(2.2))
-
+        if facultad_seleccionada == 'Facultad de Ingeniería de Sistemas Computacionales':
+            logo_facultad = r'.\Portafolio\imagenes\logo_fisc.png'
+        elif facultad_seleccionada == 'Facultad de Ingeniería Civil':
+            logo_facultad = r'.\Portafolio\imagenes\logo_civil.jpg'
+        elif facultad_seleccionada == 'Facultad de Ingeniería Eléctrica':
+            logo_facultad =r'.\Portafolio\imagenes\logo_electrica.jpg'
+        elif facultad_seleccionada == 'Facultad de Ingeniería Industrial':
+            logo_facultad = r'.\Portafolio\imagenes\logo_industrial.png'
+        elif facultad_seleccionada == 'Facultad de Ingeniería Mecánica':
+            logo_facultad = r'.\Portafolio\imagenes\logo_mecanica.png'
+        elif facultad_seleccionada == 'Facultad de Ciencias y Tecnología':
+            logo_facultad = r'.\Portafolio\imagenes\logo_ciencias_tecnologia.png'
+        imagen_derecha = run_derecha.add_picture(logo_facultad, width=Cm(2.2))
         # Ajustar los márgenes de las celdas para que las imágenes estén a la izquierda y a la derecha
         cell_izquierda.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
         cell_derecha.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT

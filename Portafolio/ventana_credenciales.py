@@ -31,7 +31,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.carrera.set('Selecciona tu carrera')
         self.intereses = tk.StringVar()
         self.FACULTADES = self.obtener_facultades()
-        self.CARRERAS = ['1','2','3']
+        self.CARRERAS = ['']
         #titulo
         tk.Label(self, text='Credenciales', font=('Inter Bold', 16)).pack()
         #Funcion para buscar imagen
@@ -112,10 +112,10 @@ class PantallaCredenciales(tk.Toplevel):
                     'Cedula': self.convertir(self.cedula),
                     'Materia': self.convertir(self.nombre_materia),
                     'Grupo': self.convertir(self.grupo_curso),
+                    'Departamento': self.seleccion_departamento(),
                     'Profesor': self.convertir(self.nombre_profesor),
                     'Facultad': self.convertir(self.facultad),
                     'Carrera': self.convertir(self.carrera),
-
                 },
                 'Subcarpeta_actividades': {
                     'Tareas': self.convertir(self.variable_checkboxes[0]),
@@ -206,7 +206,33 @@ class PantallaCredenciales(tk.Toplevel):
             facultad_seleccionada = self.facultad.get()
             self.obtener_carreras(facultad_seleccionada)
             return
-
+    
+    def seleccion_departamento(self):
+        with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
+            datos = json.load(archivo)
+        facultad_seleccionada = self.facultad.get()
+        carrera_seleccionada = self.carrera.get()
+        carreras = list(datos['Carreras'][facultad_seleccionada])
+        departamentos = list(datos['Departamentos'])
+        print(carreras)
+        index ='Facultad de Ingeniería de Sistemas Computacionales'
+        if facultad_seleccionada =='Facultad de Ingeniería de Sistemas Computacionales':
+            try:
+                if carrera_seleccionada in [carreras[8], carreras[4]]:
+                    return str(departamentos[1])
+                elif carrera_seleccionada in [carreras[2], carreras[5], carreras[7]]:
+                    return str(departamentos[0])
+                elif carrera_seleccionada == carreras[3]:
+                    return str(departamentos[2])
+                elif carrera_seleccionada in [carreras[6], carreras[11], carreras[10], carreras[12]]:
+                    return str(departamentos[3])
+                elif carrera_seleccionada in [carreras[0], carreras[1], carreras[9]]:
+                    return str(departamentos[4])
+            except Exception as e:
+                print (e)
+        else:
+            return None
+    
     def obtener_carreras(self,facultad_seleccionada):
         with open (r'.\Portafolio\recursos\datos_universidad.json', 'r', encoding='utf-8')as archivo:
             datos_carrera = json.load(archivo)
