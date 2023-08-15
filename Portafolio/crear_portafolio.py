@@ -7,8 +7,10 @@ import datetime
 from manipular_json import manipularJson
 from docx2pdf import convert
 import pptx
+import win32com.client
 from pptx.util import Inches, Pt
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT
+
 class crearPortafolio():
     LISTA_CARPETAS = ['PORTADA', 
                     'DESCRIPCIÓN DEL CURSO',
@@ -20,6 +22,8 @@ class crearPortafolio():
         self.ruta_carpeta = ruta_predefinda
         self.nombre_carpeta = nombre_carpeta
         self.crear_carpetas(self.ruta_carpeta, self.nombre_carpeta)
+        self.crear_portada()
+        self.crear_presentacion_personal()
 
     def crear_carpetas(self, ruta_carpeta, nombreCarpeta):
         #Crear carpeta principal del portafolio
@@ -43,7 +47,7 @@ class crearPortafolio():
                 messagebox.showwarning('Advertencia', 'La carpeta principal del portafolio no existe, intentalo de nuevo.')
                 return
         except Exception as h:
-            print(h)
+            messagebox.showwarning('Advertencia', h)
         
         try:
             if os.path.exists(os.path.join(ruta_completa, self.LISTA_CARPETAS[3])):
@@ -55,10 +59,6 @@ class crearPortafolio():
                         os.makedirs(os.path.join(ruta_subcarpetas, nombre.upper()))
         except Exception as e:
             print(e)
-
-    def mover_archivos(self, carpeta_origen, carpetaDestino):
-        if os.path.exists(carpeta_origen):
-            pass
 
     def crear_portada(self):
         self.doc = docx.Document()
@@ -243,9 +243,17 @@ class crearPortafolio():
         content.width = width_content
         content.height = height_content
         # Configurar el formato del párrafo para eliminar las viñetas
-        ppt.save('Presentacion Personal.pptx')
+        ruta = os.path.join(self.ruta_carpeta, self.nombre_carpeta)
+        ruta_guardado = str(os.path.join(ruta, 'PRESENTACIÓN GENERAL DEL ESTUDIANTE')+'\Presentacion Personal.pptx')
+        output_pdf = str(os.path.join(ruta, 'PRESENTACIÓN GENERAL DEL ESTUDIANTE')+'\Presentacion Personal.pdf')
+        try:
+            ppt.save(ruta_guardado)
+            #os.remove(ruta_guardado)
+        except Exception as e:
+            messagebox.showwarning('Advertencia', e)
 
-if __name__ == '__main__':
-    test = crearPortafolio(r'C:\Users\HP Envy\Downloads', 'Portafolio de Ejemplo')
-    #test.crear_portada()
-    test.crear_presentacion_personal()
+    def mover_archivos(self, carpeta_origen, carpetaDestino):
+        manipulador = manipularJson()
+        datos = manipulador.cargar_credenciales()
+        if os.path.exists(carpeta_origen):
+            archivos = os.listdir(carpeta_origen)

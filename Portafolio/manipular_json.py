@@ -1,5 +1,6 @@
 import json
 import os
+from tkinter import messagebox
 
 class manipularJson():   
     def __init__(self) -> None:
@@ -29,11 +30,7 @@ class manipularJson():
             with open(r'.\Portafolio\usuario\credenciales.json', 'r', encoding='utf-8') as archivo:
                 self.datos = json.load(archivo)
                 return self.datos
-        else:
-            pass
 
     def existe_json(self):
         if os.path.exists(self.ruta_completa):
             return True
-        else:
-            return False

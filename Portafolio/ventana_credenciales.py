@@ -288,3 +288,7 @@ class PantallaCredenciales(tk.Toplevel):
             return False
         except Exception as e:
             messagebox.showerror('ERROR', f'Hubo un error inesperado, reinicia el programa :(.{e}')
+    
+
+
+

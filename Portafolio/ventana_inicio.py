@@ -85,8 +85,10 @@ class PantallaInicio(tk.Tk):
                         foreground='red')
 
     def crear_carpetas(self):
-            crear= crearPortafolio(self.carpeta_seleccionada)
-
+        try:
+            crear= crearPortafolio(self.carpeta_seleccionada, self.generar_nombre_portafolio())
+        except:
+            pass
     #Funcion del boton salir y cerrar la pantalla
     def funcion_boton_salir(self):
         self.destroy()
@@ -108,5 +110,21 @@ class PantallaInicio(tk.Tk):
         except _tkinter.TclError as wm_command:
             print(wm_command)
 
+    def generar_nombre_portafolio(self):
+        try:
+            manipulador = manipularJson()
+            datos = manipulador.cargar_credenciales()
+            materia = datos['Credenciales']['Materia']
+            nombre = datos['Credenciales']['Nombre']
+            apellido = datos['Credenciales']['Apellido']
+            palabras_excluidas = {'de', 'para', 'con', 'por', 'a', 'desde', 'entre',
+                                'hasta', 'para', 'segun', 'la', 'con', 'por', 'en', 'y',
+                                'al', 'del', 'los', 'las','un', 'una', 'es'}
+            palabras = materia.split()
+            sigla_materia =  ''.join(palabra[0] for palabra in palabras if palabra.lower() not in palabras_excluidas)
+            return str('PORTAFOLIO_ESTUDIANTIL_'+sigla_materia.upper()+'_'+nombre[0].upper()+apellido.lower())
+        except:
+            pass
+        
 if __name__ == '__main__':
     PantallaInicio().mainloop()
