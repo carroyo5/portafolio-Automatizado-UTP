@@ -30,6 +30,13 @@ git clone https://github.com/MxsterSenpai/portafolio-Automatizado-UTP.git
 
 Luego, por medio del explorador de archivos, ve a la carpeta de la aplicación.
 
+### Instala las dependencias
+
+Para poder que el programa funcione correctamente, instala las siguientes dependencias
+
+```
+pip install python-docx python-pptx pdf2docx docx2pdf 
+```
 
 
 ### Corre el programa
