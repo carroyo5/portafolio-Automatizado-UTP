@@ -13,6 +13,7 @@ class PantallaCredenciales(tk.Toplevel):
         super().__init__(master,*args, **kwargs)
         self.title('PA - Credenciales')
         self.geometry('1280x720')
+        self.iconbitmap(r'.\Portafolio\imagenes\Logo.ico')
         self.resizable(width=False, height=False)
         estilo = get_app_style()
         #Variables globales para almcenar la informacion
@@ -45,7 +46,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.boton_volver()
 
     def entrada_credenciales(self):
-        tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack(ipady=5)
+        tk.Label(self,text='Selecciona tu facultad', font=('Inter Bold',14)).pack()
         combobox_facultades = ttk.Combobox(self, values=self.FACULTADES, 
                             state='readonly', 
                             width=max(len(facultad) for facultad in self.FACULTADES), 
@@ -72,6 +73,7 @@ class PantallaCredenciales(tk.Toplevel):
         tk.Entry(self, textvariable=self.cedula).pack(ipadx=75)
         tk.Label(self, text='Introduce tus intereses', font=('Inter Bold',14)).pack(ipady=5)
         tk.Entry(self, textvariable=self.intereses).pack(ipadx=75, ipady=15)
+
     def boton_volver(self):
         self.img_volver = tk.PhotoImage(file=r'.\Portafolio\imagenes\salir.png')
         ttk.Button(self, text='Volver',
@@ -140,8 +142,7 @@ class PantallaCredenciales(tk.Toplevel):
         self.ventana_ayuda.resizable(width=False, height=False)
         self.ventana_ayuda.title("Informacion sobre el uso del programa")
         #Mensaje
-        self.mensaje = '''Este es un mensaje de ayuda
-        es posible hacer esto?'''
+        self.mensaje = '''JADSDFSDFOJSDFODIJFSOIJFSODIJFSDOJDSIJDSODISJFDSOJF'''
         #configuracion del mensaje de ayuda
         tk.Message(self.ventana_ayuda, text=self.mensaje, width=300).pack()
 
@@ -156,9 +157,17 @@ class PantallaCredenciales(tk.Toplevel):
     #Funcion para seleccionar carpetas
     def seleccion_imagen(self):
         self.imagen_seleccionada = filedialog.askopenfilename(filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg')])
-        if self.imagen_seleccionada:
+        imagen = Image.open(self.imagen_seleccionada)
+        ancho, alto = imagen.size
+        if self.imagen_seleccionada and ancho == alto:
             archivo_seleccionado = Image.open(self.imagen_seleccionada)
             archivo_seleccionado = archivo_seleccionado.resize((200, 200))
+            archivo_seleccionado = ImageTk.PhotoImage(archivo_seleccionado)
+            self.mostrar_imagen.config(image=archivo_seleccionado)
+            self.mostrar_imagen.image = archivo_seleccionado
+        elif self.imagen_seleccionada and ancho != alto:
+            archivo_seleccionado = Image.open(self.imagen_seleccionada)
+            archivo_seleccionado = archivo_seleccionado.resize((200, 200), resample=0)
             archivo_seleccionado = ImageTk.PhotoImage(archivo_seleccionado)
             self.mostrar_imagen.config(image=archivo_seleccionado)
             self.mostrar_imagen.image = archivo_seleccionado

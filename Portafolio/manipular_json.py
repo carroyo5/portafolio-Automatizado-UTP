@@ -1,11 +1,12 @@
 import json
 import os
-from tkinter import messagebox
 
 class manipularJson():   
     def __init__(self) -> None:
+        self.existe_carpeta_usuario
         self.ruta_carpeta = '.\\Portafolio\\usuario\\'
-        self.ruta_completa = os.path.join(self.ruta_carpeta, 'credenciales.json')        
+        self.ruta_completa = os.path.join(self.ruta_carpeta, 'credenciales.json')
+
     #Si el json no existe, se accedera a este metodo
     def crear_json(self, datos_credenciales):
         with open(self.ruta_completa, 'w') as credenciales:
@@ -34,3 +35,11 @@ class manipularJson():
     def existe_json(self):
         if os.path.exists(self.ruta_completa):
             return True
+        else:
+            return False
+    
+    def existe_carpeta_usuario(self):
+        if not os.path.exists(self.ruta_carpeta):
+            os.makedirs(r'.\Portafolio\usuario')
+        else:
+            pass

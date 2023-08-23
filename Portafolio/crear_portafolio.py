@@ -7,7 +7,6 @@ import datetime
 from manipular_json import manipularJson
 from docx2pdf import convert
 import pptx
-import win32com.client
 from pptx.util import Inches, Pt
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT
 
@@ -18,6 +17,7 @@ class crearPortafolio():
                     'ACTIVIDADES O ASIGNACIONES', 
                     'MATERIAL DIDACTICO DEL CURSO',
                     'CONCLUSIÓN']
+    
     def __init__(self, ruta_predefinda, nombre_carpeta) -> None:
         self.ruta_carpeta = ruta_predefinda
         self.nombre_carpeta = nombre_carpeta
@@ -48,7 +48,7 @@ class crearPortafolio():
                 return
         except Exception as h:
             messagebox.showwarning('Advertencia', h)
-        
+
         try:
             if os.path.exists(os.path.join(ruta_completa, self.LISTA_CARPETAS[3])):
                 cargar_datos = manipularJson()
@@ -245,7 +245,6 @@ class crearPortafolio():
         # Configurar el formato del párrafo para eliminar las viñetas
         ruta = os.path.join(self.ruta_carpeta, self.nombre_carpeta)
         ruta_guardado = str(os.path.join(ruta, 'PRESENTACIÓN GENERAL DEL ESTUDIANTE')+'\Presentacion Personal.pptx')
-        output_pdf = str(os.path.join(ruta, 'PRESENTACIÓN GENERAL DEL ESTUDIANTE')+'\Presentacion Personal.pdf')
         try:
             ppt.save(ruta_guardado)
             #os.remove(ruta_guardado)

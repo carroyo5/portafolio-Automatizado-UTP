@@ -1,13 +1,13 @@
 import tkinter as tk 
 from tkinter import ttk 
 from tkinter import filedialog
-from tkinter import messagebox
 from styles import get_app_style
 from ventana_credenciales import PantallaCredenciales
 from ventana_creacion import PantallaCreacion
-import json
 from manipular_json import manipularJson
 import _tkinter
+import os
+from tkinter import messagebox
 from crear_portafolio import crearPortafolio
 
 class PantallaInicio(tk.Tk):
@@ -15,6 +15,7 @@ class PantallaInicio(tk.Tk):
         super().__init__(*args, **kwargs)
         self.title('PA - Portafolio Automatizado')
         self.geometry('1280x720')
+        self.iconbitmap(r'.\Portafolio\imagenes\Logo.ico')
         self.resizable(width=False, height=False)
         self.protocol("WM_DELETE_WINDOW", self.funcion_boton_salir)
         self.carpeta_seleccionada = ''
@@ -85,8 +86,14 @@ class PantallaInicio(tk.Tk):
                         foreground='red')
 
     def crear_carpetas(self):
+        #Comprobacion de la existencia de la carpeta "usuario"
+        if not os.path.exists(r'.\Portafolio\usuario'):
+            os.mkdir(r'.\Portafolio\usuario')
+        elif not os.path.exists(r'.\Portafolio\usuario\credenciales.json'):
+            messagebox.showwarning('Advertencia', 'Introduce tus datos antes de crear el portafolio!')
+            return
         try:
-            crear= crearPortafolio(self.carpeta_seleccionada, self.generar_nombre_portafolio())
+            crear = crearPortafolio(self.carpeta_seleccionada, self.generar_nombre_portafolio())
         except:
             pass
     #Funcion del boton salir y cerrar la pantalla
@@ -125,6 +132,6 @@ class PantallaInicio(tk.Tk):
             return str('PORTAFOLIO_ESTUDIANTIL_'+sigla_materia.upper()+'_'+nombre[0].upper()+apellido.lower())
         except:
             pass
-        
+
 if __name__ == '__main__':
     PantallaInicio().mainloop()
